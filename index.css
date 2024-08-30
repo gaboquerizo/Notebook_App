@@ -1,0 +1,450 @@
+
+/* . . . . Custom property styles . . . . */
+
+:root {
+    --w-color: #fff;
+    --b-color: #000;
+
+    --space-1: 6px;
+    --space-2: 9px;
+    --space-3: 12px;
+    --space-4: 18px;
+    --space-5: 24px;
+    --space-6: 30px;
+    --space-7: 36px;
+    --space-8: 42px;
+    --space-9: 48px;
+
+    --solid-1: 1px;
+    --solid-2: 2px;
+    --solid-3: 4px;
+
+    --radius-1: 6px;
+    --radius-2: 12px;
+    --radius-3: 18px;
+
+    --transition-1: .1s ease-in;
+    --transition-2: .4s ease-in-out;
+
+    --sidebar-width: 20em;
+}
+
+:root[data-theme="light"] {
+    --bg-color-1: #e0ecf0;
+    --bg-color-2: #d1e0e5;
+    --bg-color-3: #c5d9e0;
+    --bg-color-4: #b7cbd2;
+    --bg-color-5: #9db8cd;
+    
+    --ic-color-1: #748494;
+
+    --tx-color-1: #112233;
+    --tx-color-2: #243444;
+    --tx-color-3: #79b8e9;
+    --tx-color-4: #0099ff;
+    --tx-color-5: #0080d5;
+
+    --shadow-1: 20px 20px 50px #cad4d8,
+                -20px -20px 50px #f6ffff;
+}
+
+:root[data-theme="dark"] {
+    --bg-color-1: #171c20;
+    --bg-color-2: #12171a;
+    --bg-color-3: #293035;
+    --bg-color-4: #46525b;
+    --bg-color-5: #637481;
+    
+        --ic-color-1: #8198a0;
+
+    --tx-color-1: #f4f6f8;
+    --tx-color-2: #b7cbd2;
+    --tx-color-3: #933547;
+    --tx-color-4: #ee403f;
+    --tx-color-5: #f96060;
+
+    --shadow-1: 20px 20px 60px #12161a,
+                -20px -20px 60px #21282c;
+}
+
+/* . . . . Browser interface styles . . . . */
+
+::-webkit-scrollbar {
+    background: var(--bg-color-2);
+    width: 8px;
+}
+::-webkit-scrollbar-thumb {
+    background: var(--bg-color-3);
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--bg-color-4);
+}
+
+::selection {
+    background-color: var(--tx-color-3);
+    color: var(--w-color);
+}
+
+@font-face {
+    font-family: 'Exo 2';
+    src:url('assets/fonts/Exo2.woff2') format('woff2'),
+        url('assets/fonts/Exo2.woff') format('woff'),
+        url('assets/fonts/Exo2.ttf') format('ttf');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* . . . . Formatted styles . . . . */
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* . . . . Base styles for the project . . . . */
+
+input,
+textarea {
+  width: 100%;
+}
+
+input,
+textarea, [contenteditable="true"] {
+  outline: none;
+}
+
+textarea {
+  resize: vertical;
+}
+
+::where(input, textarea)::placeholder { color: currentColor; }
+
+button:disabled { pointer-events: none; }
+
+/* . . . . HTML Element styles . . . . */
+
+html {
+    font-family: 'Exo 2', system-ui, sans-serif;
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+body {
+    background: var(--bg-color-1);
+    color: var(--tx-color-1);
+    padding: var(--space-6);
+    position: relative;
+}
+
+svg {
+    width: 2em;
+    height: 2em;
+    color: var(--ic-color-1);
+}
+
+/* . . . . Light/Dark theme toggler . . . . */
+
+.theme-switch {
+    width: max-content;
+    .light {
+        display: none;
+    }
+    .dark {
+        display: block;
+    }
+    &:has( :checked ) {
+        .light {
+            display: block;
+        }
+        .dark {
+            display: none;
+        }
+    }
+    label {
+        display: flex;
+    }
+    input[type="checkbox"] {
+        display: none;
+    }
+}
+
+
+
+
+/* . . . . icon and logo styles . . . . */
+
+.icon--svg svg {
+    color: var(--ic-color-1);
+    transition: var(--transition-1);
+    &:hover {
+        color: var(--tx-color-4);
+    }
+    &:active, &:focus {
+        color: var(--tx-color-3);
+        outline: none;
+    }
+}
+
+.icon--svg__box {
+    width: max-content;
+    padding: var(--space-3);
+    outline: solid var(--solid-1) var(--bg-color-3);
+    border-radius: var(--radius-2);
+    transition: var(--transition-1);
+
+    &:hover {
+        background-color: var(--bg-color-2);
+        outline-color: var(--bg-color-2);
+    }
+    &:active,
+    &:focus {
+        background-color: var(--tx-color-4);
+        outline-width: var(--solid-3);
+        outline-color: var(--tx-color-3);
+    }
+    &:hover svg {
+        color: var(--tx-color-4);
+    }
+    &:active svg,
+    &:focus svg {
+        color: var(--w-color);
+    }
+}
+
+.icon-logo svg {
+    width: 2em;
+    height: 2em;
+    fill: var(--tx-color-4);
+    transition: var(--transition-1);
+    &:hover {
+        fill: var(--tx-color-4);
+    }
+    &:active, &:focus {
+        fill: var(--tx-color-3);
+    }
+}
+
+a[href].icon--svg svg {
+    display: flex;
+    align-items: center;
+    width: 2em;
+    height: 2em;
+}
+
+a[href].icon-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    span {
+        margin-top: var(--space-1);
+        font-size: .7em;
+        color: var(--ic-color-1);
+    }
+    strong {
+        font-weight: lighter;
+        color: var(--tx-color-4);
+    }
+}
+
+
+
+
+/* . . . . element styles . . . . */
+
+.link--btn__hover {
+    display: inline-block;
+    transition: var(--transition-1);
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-1);
+    outline: solid var(--solid-1) var(--tx-color-3);
+    background-color: var(--tx-color-4);
+    
+    color: var(--w-color);
+    cursor: default;
+    
+    &:hover {
+        background-color: var(--tx-color-5);
+        outline-color: var(--tx-color-4);
+    }
+    &:active,
+    &:focus {
+        background-color: var(--tx-color-4);
+        outline: solid var(--solid-3) var(--tx-color-3);
+    }
+}
+
+
+
+
+/* . . . . components styles . . . . */
+
+
+/* . . Sidebar . . */
+
+.sidebar {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    max-width: var(--sidebar-width);
+    padding: var(--space-4);
+
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 100%;
+    background-color: var(--bg-color-1);
+    border-right: solid var(--solid-3) var(--tx-color-4);
+    border-radius: 0 var(--radius-3) var(--radius-3) 0;
+    box-shadow: var(--shadow-1);
+
+    visibility: hidden;
+    transition: var(--transition-2);
+    transition-property: transform, visibility;
+}
+
+.sidebar.active {
+    transform: translateX(100%);
+    visibility: visible;
+}
+
+.icon--svg svg {
+    width: 1.25em;
+    height: 1.25em;
+}
+
+.sidebar .sb-hero,
+.sb-footer {
+    padding: var(--space-2);
+}
+
+.sidebar > section {
+    display: flex;
+    justify-content: space-between;
+}
+
+.sb-title {
+    padding: var(--space-2);
+    h3 {
+        color: var(--tx-color-2);
+        align-content: center;
+    }
+    .icon--svg__box {
+        display: flex;
+    }
+}
+
+.sb-title {
+    margin-bottom: var(--space-4);
+}
+
+.sb-nav {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    padding: var(--space-2) 0;
+    border-bottom: solid var(--solid-1) var(--bg-color-3);
+    overflow: hidden;
+    overflow-y: visible;
+}
+
+.sb-nav::-webkit-scrollbar {
+    background: var(--bg-color-2);
+    width: 4px;
+}
+
+.nav-item {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-6);
+    
+    width: 100%;
+    max-width: var(--sidebar-width);
+
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-2);
+    border: solid var(--solid-1) var(--bg-color-3);
+    cursor: default;
+    
+    transition: var(--transition-1);
+    &:hover {
+        border: solid var(--solid-1) var(--bg-color-2);
+        background-color: var(--bg-color-2);
+    }
+    &:active {
+        border: solid var(--solid-1) var(--tx-color-4);
+        background-color: var(--bg-color-2);
+    }
+}
+
+.sb-item--title {
+    font-weight: lighter;
+    align-content: center;
+
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.sb-item--modifiers {
+    display: flex;
+    gap: var(--space-2);
+
+    max-width: 0%;
+    visibility: hidden;
+    opacity: 0;
+
+    transition: all var(--transition-1);
+
+    .icon--svg {
+        display: flex;
+        align-items: center;
+    }
+}
+
+.nav-item:where(:hover) .sb-item--modifiers {
+    max-width: 100%;
+    visibility: visible;
+    opacity: 1;
+}
+
+
+.sb-footer span {
+    cursor: default;
+    align-content: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+.card {
+    margin: var(--space-5) 0;
+    padding: var(--space-6);
+    border-radius: var(--radius-3);
+    background-color: var(--bg-color-1);
+    box-shadow: var(--shadow-1);
+
+    width: 301px;
+
+    h1, p {
+        margin-bottom: var(--space-5);
+    }
+    
+    p {
+        color: var(--tx-color-2);
+    }
+}
+
