@@ -580,3 +580,17 @@ a[href].icon-logo {
 }
 
 /* . Modal . */
+
+.modal {
+    background-color: var(--bg-color-1);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(100% - calc(var(--space-6) * 2));
+    
+    padding: var(--space-5);
+    border-radius: var(--radius-3);
+    background-color: var(--bg-color-1);
+    outline: solid var(--solid-1) var(--bg-color-3);
+}
