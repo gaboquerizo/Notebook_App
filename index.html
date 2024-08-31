@@ -17,7 +17,7 @@
 
 </head>
 <body>
-    <header class="sidebar active" data-sidebar>
+    <header class="sidebar" data-sidebar>
         <section class="sb-hero">
             <a href="./" class="icon-logo">
                 <svg viewBox="0 0 461.00 675.00">
@@ -38,8 +38,8 @@
         <section class="sb-title">
             <h3>NOTEBOOKS</h3>
             <button class="icon--svg icon--svg__box">
-                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
-                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v8m4-4H8m-5.5 0c0-4.478 0-6.718 1.391-8.109S7.521 2.5 12 2.5c4.478 0 6.718 0 8.109 1.391S21.5 7.521 21.5 12c0 4.478 0 6.718-1.391 8.109S16.479 21.5 12 21.5c-4.478 0-6.718 0-8.109-1.391S2.5 16.479 2.5 12" color="currentColor" />
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4v16m-8-8h16" color="currentColor" />
                 </svg>
             </button>
         </section>
@@ -86,16 +86,24 @@
 
     <div class="overlay" data-sidebar-overlay data-sidebar-toggler></div>
 
-    <main>
-        <article style="display: flex;justify-content: space-between;">
-            <div style="align-content: center;">
-                <h1>Bienvenido</h1>
-            </div>
+    <main class="main-content">
+        <article class="header">
             <section>
-                <div>
-                    <span>12:36:02</span>
-                    <span>lun, Ago 22 2024</span>
+                <div class="main-menu icon--svg icon--svg__box">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 4.5h16m-16 10h16m-16-5h16m-16 10h16" color="currentColor" />
+                    </svg>
                 </div>
+            </section>
+            <section class="mh-menu mh-title">
+                <h1 class="greeting">Bienvenido</h1>
+
+                <div class="date-time">
+                    <span class="time">12:36</span>
+                    <span class="date">lun, 22 Ago 2024</span>
+                </div>
+            </section>
+            <section>
                 <div class="theme-switch">
                     <label class="icon--svg icon--svg__box" tabindex="0">
                         <input type="checkbox">
@@ -107,23 +115,120 @@
                 </div>
             </section>
         </article>
-        <section>
-            <div class="card">
-                <h1>Hola mundo</h1>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio delectus fugiat animi recusandae ut qui ex totam molestias quidem cum doloribus labore perferendis, quas officiis, nihil voluptate fugit cupiditate ab?</p>
-                <a class="link--btn__hover" tabindex="0">Ver más</a>
+        <article class="add-note "> <!-- fab -->
+            <div class="icon--svg icon--svg__box">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v8m4-4H8m-5.5 0c0-4.478 0-6.718 1.391-8.109S7.521 2.5 12 2.5c4.478 0 6.718 0 8.109 1.391S21.5 7.521 21.5 12c0 4.478 0 6.718-1.391 8.109S16.479 21.5 12 21.5c-4.478 0-6.718 0-8.109-1.391S2.5 16.479 2.5 12" color="currentColor" />
+                </svg>
+                <span>
+                    Nueva nota
+                </span>
             </div>
-            <div class="card">
-                <h1>Hola mundo</h1>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio delectus fugiat animi recusandae ut qui ex totam molestias quidem cum doloribus labore perferendis, quas officiis, nihil voluptate fugit cupiditate ab?</p>
-                <a class="link--btn__hover" tabindex="0">Ver más</a>
+        </article>
+        <article class="note-list" data-note-panel>
+            
+            <div class="note">
+                <h3 class="note-title">Hola mundo</h3>
+                <p class="note-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio delectus fugiat animi recusandae ut qui ex totam molestias quidem cum doloribus labore perferendis, quas officiis, nihil voluptate fugit cupiditate ab?</p>
+                <div class="note-footer">
+                    <span class="date">20 min ago</span>
+                    <button class="icon--svg" data-delete-note>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m19.5 5.5l-.62 10.025c-.158 2.561-.237 3.842-.88 4.763a4 4 0 0 1-1.2 1.128c-.957.584-2.24.584-4.806.584c-2.57 0-3.855 0-4.814-.585a4 4 0 0 1-1.2-1.13c-.642-.922-.72-2.205-.874-4.77L4.5 5.5M3 5.5h18m-4.944 0l-.683-1.408c-.453-.936-.68-1.403-1.071-1.695a2 2 0 0 0-.275-.172C13.594 2 13.074 2 12.035 2c-1.066 0-1.599 0-2.04.234a2 2 0 0 0-.278.18c-.395.303-.616.788-1.058 1.757L8.053 5.5m1.447 11v-6m5 6v-6" color="currentColor" />
+                        </svg>
+                    </button>
+                </div>
             </div>
-            <div class="card">
-                <h1>Hola mundo</h1>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio delectus fugiat animi recusandae ut qui ex totam molestias quidem cum doloribus labore perferendis, quas officiis, nihil voluptate fugit cupiditate ab?</p>
-                <a class="link--btn__hover" tabindex="0">Ver más</a>
-            </div>            
-        </section>
+            <div class="note">
+                <h3 class="note-title">Hola mundo</h3>
+                <p class="note-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio delectus fugiat animi recusandae ut qui ex totam molestias quidem cum doloribus labore perferendis, quas officiis, nihil voluptate fugit cupiditate ab?</p>
+                <div class="note-footer">
+                    <span class="date">20 min ago</span>
+                    <button class="icon--svg" data-delete-note>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m19.5 5.5l-.62 10.025c-.158 2.561-.237 3.842-.88 4.763a4 4 0 0 1-1.2 1.128c-.957.584-2.24.584-4.806.584c-2.57 0-3.855 0-4.814-.585a4 4 0 0 1-1.2-1.13c-.642-.922-.72-2.205-.874-4.77L4.5 5.5M3 5.5h18m-4.944 0l-.683-1.408c-.453-.936-.68-1.403-1.071-1.695a2 2 0 0 0-.275-.172C13.594 2 13.074 2 12.035 2c-1.066 0-1.599 0-2.04.234a2 2 0 0 0-.278.18c-.395.303-.616.788-1.058 1.757L8.053 5.5m1.447 11v-6m5 6v-6" color="currentColor" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="note">
+                <h3 class="note-title">Hola mundo</h3>
+                <p class="note-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio delectus fugiat animi recusandae ut qui ex totam molestias quidem cum doloribus labore perferendis, quas officiis, nihil voluptate fugit cupiditate ab?</p>
+                <div class="note-footer">
+                    <span class="date">20 min ago</span>
+                    <button class="icon--svg" data-delete-note>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m19.5 5.5l-.62 10.025c-.158 2.561-.237 3.842-.88 4.763a4 4 0 0 1-1.2 1.128c-.957.584-2.24.584-4.806.584c-2.57 0-3.855 0-4.814-.585a4 4 0 0 1-1.2-1.13c-.642-.922-.72-2.205-.874-4.77L4.5 5.5M3 5.5h18m-4.944 0l-.683-1.408c-.453-.936-.68-1.403-1.071-1.695a2 2 0 0 0-.275-.172C13.594 2 13.074 2 12.035 2c-1.066 0-1.599 0-2.04.234a2 2 0 0 0-.278.18c-.395.303-.616.788-1.058 1.757L8.053 5.5m1.447 11v-6m5 6v-6" color="currentColor" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="note">
+                <h3 class="note-title">Hola mundo</h3>
+                <p class="note-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio delectus fugiat animi recusandae ut qui ex totam molestias quidem cum doloribus labore perferendis, quas officiis, nihil voluptate fugit cupiditate ab?</p>
+                <div class="note-footer">
+                    <span class="date">20 min ago</span>
+                    <button class="icon--svg" data-delete-note>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m19.5 5.5l-.62 10.025c-.158 2.561-.237 3.842-.88 4.763a4 4 0 0 1-1.2 1.128c-.957.584-2.24.584-4.806.584c-2.57 0-3.855 0-4.814-.585a4 4 0 0 1-1.2-1.13c-.642-.922-.72-2.205-.874-4.77L4.5 5.5M3 5.5h18m-4.944 0l-.683-1.408c-.453-.936-.68-1.403-1.071-1.695a2 2 0 0 0-.275-.172C13.594 2 13.074 2 12.035 2c-1.066 0-1.599 0-2.04.234a2 2 0 0 0-.278.18c-.395.303-.616.788-1.058 1.757L8.053 5.5m1.447 11v-6m5 6v-6" color="currentColor" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="note">
+                <h3 class="note-title">Hola mundo</h3>
+                <p class="note-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio delectus fugiat animi recusandae ut qui ex totam molestias quidem cum doloribus labore perferendis, quas officiis, nihil voluptate fugit cupiditate ab?</p>
+                <div class="note-footer">
+                    <span class="date">20 min ago</span>
+                    <button class="icon--svg" data-delete-note>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m19.5 5.5l-.62 10.025c-.158 2.561-.237 3.842-.88 4.763a4 4 0 0 1-1.2 1.128c-.957.584-2.24.584-4.806.584c-2.57 0-3.855 0-4.814-.585a4 4 0 0 1-1.2-1.13c-.642-.922-.72-2.205-.874-4.77L4.5 5.5M3 5.5h18m-4.944 0l-.683-1.408c-.453-.936-.68-1.403-1.071-1.695a2 2 0 0 0-.275-.172C13.594 2 13.074 2 12.035 2c-1.066 0-1.599 0-2.04.234a2 2 0 0 0-.278.18c-.395.303-.616.788-1.058 1.757L8.053 5.5m1.447 11v-6m5 6v-6" color="currentColor" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="note">
+                <h3 class="note-title">Hola mundo</h3>
+                <p class="note-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio delectus fugiat animi recusandae ut qui ex totam molestias quidem cum doloribus labore perferendis, quas officiis, nihil voluptate fugit cupiditate ab?</p>
+                <div class="note-footer">
+                    <span class="date">20 min ago</span>
+                    <button class="icon--svg" data-delete-note>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m19.5 5.5l-.62 10.025c-.158 2.561-.237 3.842-.88 4.763a4 4 0 0 1-1.2 1.128c-.957.584-2.24.584-4.806.584c-2.57 0-3.855 0-4.814-.585a4 4 0 0 1-1.2-1.13c-.642-.922-.72-2.205-.874-4.77L4.5 5.5M3 5.5h18m-4.944 0l-.683-1.408c-.453-.936-.68-1.403-1.071-1.695a2 2 0 0 0-.275-.172C13.594 2 13.074 2 12.035 2c-1.066 0-1.599 0-2.04.234a2 2 0 0 0-.278.18c-.395.303-.616.788-1.058 1.757L8.053 5.5m1.447 11v-6m5 6v-6" color="currentColor" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="note">
+                <h3 class="note-title">Hola mundo</h3>
+                <p class="note-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio delectus fugiat animi recusandae ut qui ex totam molestias quidem cum doloribus labore perferendis, quas officiis, nihil voluptate fugit cupiditate ab?</p>
+                <div class="note-footer">
+                    <span class="date">20 min ago</span>
+                    <button class="icon--svg" data-delete-note>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m19.5 5.5l-.62 10.025c-.158 2.561-.237 3.842-.88 4.763a4 4 0 0 1-1.2 1.128c-.957.584-2.24.584-4.806.584c-2.57 0-3.855 0-4.814-.585a4 4 0 0 1-1.2-1.13c-.642-.922-.72-2.205-.874-4.77L4.5 5.5M3 5.5h18m-4.944 0l-.683-1.408c-.453-.936-.68-1.403-1.071-1.695a2 2 0 0 0-.275-.172C13.594 2 13.074 2 12.035 2c-1.066 0-1.599 0-2.04.234a2 2 0 0 0-.278.18c-.395.303-.616.788-1.058 1.757L8.053 5.5m1.447 11v-6m5 6v-6" color="currentColor" />
+                        </svg>
+                    </button>
+                </div>
+            </div>         
+        </article>
+        <article class="modal">
+            <button class="sb--btn-close icon--svg">
+                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 5L5 19M5 5l14 14" color="currentColor" />
+                </svg>
+            </button>
+            
+            <input type="text" placeholder="Untitled" value="Untitled" class="modal-title" data-note-field>
+            <textarea placeholder="Escribe aquí..."></textarea>
+
+            <div class="modal-footer">
+                <span>20 min ago</span>
+                <button class="icon--svg icon--svg__box">
+                    <span>Guardar</span>
+                </button>
+            </div>
+        </article>
     </main>
 </body>
 </html>

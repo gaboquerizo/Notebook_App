@@ -37,6 +37,7 @@
     --bg-color-5: #9db8cd;
     
     --ic-color-1: #748494;
+    --ov-color-1: var(--bg-color-4);
 
     --tx-color-1: #112233;
     --tx-color-2: #243444;
@@ -44,8 +45,8 @@
     --tx-color-4: #0099ff;
     --tx-color-5: #0080d5;
 
-    --shadow-1: 20px 20px 50px #cad4d8,
-                -20px -20px 50px #f6ffff;
+    --shadow-1: 20px 20px 50px #cad4d8, -20px -20px 50px #f6ffff;
+    --shadow-2: 10px 10px 40px #cad4d8, -10px -10px 40px #f6ffff;
 }
 
 :root[data-theme="dark"] {
@@ -55,16 +56,21 @@
     --bg-color-4: #46525b;
     --bg-color-5: #637481;
     
-        --ic-color-1: #8198a0;
-
+    --ic-color-1: #8198a0;
+    --ov-color-1: var(--bg-color-2);
+    
     --tx-color-1: #f4f6f8;
     --tx-color-2: #b7cbd2;
     --tx-color-3: #933547;
     --tx-color-4: #ee403f;
     --tx-color-5: #f96060;
-
-    --shadow-1: 20px 20px 60px #12161a,
-                -20px -20px 60px #21282c;
+    
+    --shadow-1: 20px 20px 60px #12161a, -20px -20px 60px #21282c;
+    --shadow-2: 10px 10px 40px #12161a, -10px -10px 40px #21282c;
+    
+    .theme-switch svg {
+        transform: rotate(-90deg);
+    }
 }
 
 /* . . . . Browser interface styles . . . . */
@@ -197,16 +203,20 @@ svg {
     outline: solid var(--solid-1) var(--bg-color-3);
     border-radius: var(--radius-2);
     transition: var(--transition-1);
+    box-shadow: var(--shadow-2);
+    color: var(--ic-color-1);
 
     &:hover {
         background-color: var(--bg-color-2);
         outline-color: var(--bg-color-2);
+        color: var(--tx-color-4);
     }
     &:active,
     &:focus {
         background-color: var(--tx-color-4);
         outline-width: var(--solid-3);
         outline-color: var(--tx-color-3);
+        color: var(--w-color);
     }
     &:hover svg {
         color: var(--tx-color-4);
@@ -307,6 +317,7 @@ a[href].icon-logo {
     visibility: hidden;
     transition: var(--transition-2);
     transition-property: transform, visibility;
+    z-index: 3;
 }
 
 .sidebar.active {
@@ -423,29 +434,149 @@ a[href].icon-logo {
 
 
 
+/* . . Overlay . . */
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    background-color: var(--ov-color-1);
+    visibility: hidden;
+    opacity: 0;
+    transition: var(--transition-2);
+    transition-property: opacity, visibility;
+    z-index: 2;
+}
+
+.overlay.active {
+    visibility: visible;
+    opacity: .6;
+}
 
 
+/* . . Main content styles . . */
 
+.main-content {
+    position: relative;
+}
 
+.main-menu {
+    display: flex;
+    height: max-content;
+}
 
+/* . Header .*/
 
+.header {
+    display: flex;
+    justify-content: space-between;
+}
 
+.greeting {
+    align-content: center;
+}
 
-.card {
+.mh-menu {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 var(--space-4);
+}
+
+.date-time {
+    text-align: right;
+    align-content: center;
+    color: var(--ic-color-1);
+    .time {
+        font-size: 1.5em;
+    }
+    .date {
+        font-size: .8em;
+    }
+}
+
+.add-note {
     margin: var(--space-5) 0;
-    padding: var(--space-6);
+    div {
+        width: 300px;
+        display: flex;
+        justify-content: center;
+        gap: var(--space-2);
+        cursor: pointer;
+    }
+}
+
+.add-note.fab {
+    margin: var(--space-2) 0;
+    position: fixed;
+    bottom: 0%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(90% - var(--space-4));
+    div {
+        width: 100%;
+        background-color: var(--bg-color-1);
+    }
+}
+
+/* . Notes . */
+
+.note-list {
+    margin: var(--space-5) 0;
+    /* display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-9); */
+    
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    align-content: flex-start;
+    align-items: stretch;
+    gap: var(--space-6);
+}
+
+.note {
+    padding: var(--space-5);
     border-radius: var(--radius-3);
     background-color: var(--bg-color-1);
-    box-shadow: var(--shadow-1);
+    outline: solid var(--solid-1) var(--bg-color-3);
+    cursor: pointer;
+    max-width: 300px; /*100%*/
 
-    width: 301px;
-
-    h1, p {
-        margin-bottom: var(--space-5);
+    h3, p {
+        margin-bottom: var(--space-2);
     }
     
     p {
         color: var(--tx-color-2);
     }
+
+    transition: var(--transition-1);
+    &:hover {
+        outline: solid var(--solid-1) var(--bg-color-2);
+        background-color: var(--bg-color-2);
+        color: var(--tx-color-4);
+    }
+    &:active {
+        outline: solid var(--solid-1) var(--tx-color-4);
+        background-color: var(--bg-color-2);
+    }
+    &:focus {
+        outline-width: var(--solid-3);
+        outline-color: var(--tx-color-3);
+        color: var(--tx-color-4);
+    }
 }
 
+.note-footer {
+    display: flex;
+    justify-content: space-between;
+    
+    .date {
+        color: var(--bg-color-5);
+    }
+}
+
+/* . Modal . */
