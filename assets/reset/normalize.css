@@ -265,6 +265,7 @@ progress {
  */
 
 textarea {
+  color: inherit;
   overflow: auto;
 }
 

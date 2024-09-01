@@ -28,7 +28,7 @@
                 </svg>
                 <span>MAN<strong>GO</strong></span>
             </a>
-            <button class="sb--btn-close icon--svg" aria-label="Cerrar menu" data-sidebar-toggler>
+            <button class="icon--svg" aria-label="Cerrar menu" data-sidebar-toggler>
                 <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
                     <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 5L5 19M5 5l14 14" color="currentColor" />
                 </svg>
@@ -84,7 +84,7 @@
 
     </header>
 
-    <div class="overlay" data-sidebar-overlay data-sidebar-toggler></div>
+    <div class="overlay" data-sidebar-overlay></div>
 
     <main class="main-content">
         <article class="header">
@@ -125,6 +125,7 @@
                 </span>
             </div>
         </article>
+        
         <article class="note-list" data-note-panel>
             
             <div class="note">
@@ -210,25 +211,59 @@
                         </svg>
                     </button>
                 </div>
-            </div>         
+            </div>
+
         </article>
-        <article class="modal">
-            <button class="sb--btn-close icon--svg">
+
+        <!-- Modal view start -->
+        <!-- <article class="modal">
+            <button class="btn-close icon--svg">
                 <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
                     <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 5L5 19M5 5l14 14" color="currentColor" />
                 </svg>
             </button>
             
             <input type="text" placeholder="Untitled" value="Untitled" class="modal-title" data-note-field>
-            <textarea placeholder="Escribe aquí..."></textarea>
-
+            <textarea placeholder="Escribe aquí..." class="modal-text"></textarea>
+            
             <div class="modal-footer">
-                <span>20 min ago</span>
+                <span class="date">20 min ago</span>
                 <button class="icon--svg icon--svg__box">
                     <span>Guardar</span>
                 </button>
             </div>
         </article>
+        
+        <article class="modal">
+            <p class="message">
+                Estás segudo de que quieres eliminar
+                <strong>Note title</strong>
+            </p>
+            
+            <div class="modal-footer">
+                <button class="icon--svg icon--svg__box btn-cancel">
+                    <span>Cancelar</span>
+                </button>
+                
+                <button class="icon--svg icon--svg__box">
+                    <span>Eliminar</span>
+                </button>
+            </div>
+        </article> -->
+        <!-- Modal view end -->
+        
+        <!-- Background icon start -->
+            <!-- <div class="empty-notes">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" color="currentColor">
+                        <path d="m12.88 7.017l4.774 1.271m-5.796 2.525l2.386.636m-2.267 6.517l.954.255c2.7.72 4.05 1.079 5.114.468c1.063-.61 1.425-1.953 2.148-4.637l1.023-3.797c.724-2.685 1.085-4.027.471-5.085s-1.963-1.417-4.664-2.136l-.954-.255c-2.7-.72-4.05-1.079-5.113-.468c-1.064.61-1.426 1.953-2.15 4.637l-1.022 3.797c-.724 2.685-1.086 4.027-.471 5.085c.614 1.057 1.964 1.417 4.664 2.136" />
+                        <path d="m12 20.946l-.952.26c-2.694.733-4.04 1.1-5.102.477c-1.06-.622-1.422-1.99-2.143-4.728l-1.021-3.872c-.722-2.737-1.083-4.106-.47-5.184C2.842 6.966 4 7 5.5 7" />
+                    </g>
+                </svg>
+                <h3>No hay notas</h3>
+            </div> -->
+        <!-- Background icon end -->
+
     </main>
 </body>
 </html>
