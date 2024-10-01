@@ -9,9 +9,8 @@
     <meta name="description" content="Escribe y crea notas de forma rápida y cómoda.">
 
     <link rel="favicon icon" href="https://cdn-icons-png.flaticon.com/512/12292/12292533.png">
-    <link rel="stylesheet" href="app/styles/typeface.css">
-    <link rel="stylesheet" href="assets/reset/normalize.css">
     <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="assets/reset/normalize.css">
 
     <script defer src="index.js" type="module"></script>
 </head>
@@ -37,7 +36,7 @@
 
         <section class="sb__title">
             <h2>Notebooks</h2>
-            <button title="Crear nuevo notebook" data-add-notebook>
+            <button title="Crear nuevo notebook" data-notebook-add>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                     <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4v16m-8-8h16" color="currentColor" />
                 </svg>
@@ -48,7 +47,7 @@
 
             <div class="navbar__item permanent" data-item-notebook>
                 <h3 class="navbar__item--title" data-notebook-title>
-                    My notes
+                    Universidad
                 </h3>
                 <nav class="navbar__item--btns">
                     <button title="Editar" data-notebook-edit>
@@ -70,27 +69,7 @@
             <!-- Ejemplos extras inicio -->
             <div class="navbar__item permanent" data-item-notebook>
                 <h3 class="navbar__item--title" data-notebook-title>
-                    My notes
-                </h3>
-                <nav class="navbar__item--btns">
-                    <button title="Editar" data-notebook-edit>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                            <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" color="currentColor">
-                                <path d="m16.214 4.982l1.402-1.401a1.982 1.982 0 0 1 2.803 2.803l-1.401 1.402m-2.804-2.804l-5.234 5.234c-1.045 1.046-1.568 1.568-1.924 2.205S8.342 14.561 8 16c1.438-.342 2.942-.7 3.579-1.056s1.16-.879 2.205-1.924l5.234-5.234m-2.804-2.804l2.804 2.804" />
-                                <path d="M21 12c0 4.243 0 6.364-1.318 7.682S16.242 21 12 21s-6.364 0-7.682-1.318S3 16.242 3 12s0-6.364 1.318-7.682S7.758 3 12 3" />
-                            </g>
-                        </svg>
-                    </button>
-                    <button title="Eliminar" data-notebook-delete>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m19.5 5.5l-.62 10.025c-.158 2.561-.237 3.842-.88 4.763a4 4 0 0 1-1.2 1.128c-.957.584-2.24.584-4.806.584c-2.57 0-3.855 0-4.814-.585a4 4 0 0 1-1.2-1.13c-.642-.922-.72-2.205-.874-4.77L4.5 5.5M3 5.5h18m-4.944 0l-.683-1.408c-.453-.936-.68-1.403-1.071-1.695a2 2 0 0 0-.275-.172C13.594 2 13.074 2 12.035 2c-1.066 0-1.599 0-2.04.234a2 2 0 0 0-.278.18c-.395.303-.616.788-1.058 1.757L8.053 5.5m1.447 11v-6m5 6v-6" color="currentColor" />
-                        </svg>
-                    </button>
-                </nav>
-            </div>
-            <div class="navbar__item permanent" data-item-notebook>
-                <h3 class="navbar__item--title" data-notebook-title>
-                    My notes
+                    Deudas por pagar
                 </h3>
                 <nav class="navbar__item--btns">
                     <button title="Editar" data-notebook-edit>
@@ -229,7 +208,7 @@
                     <button class="modal--btn__cancel" title="Cancelar" data-notebook-cancel >
                         Cancelar
                     </button>
-                    <button class="modal--btn__confirm" title="Guardar" data-add-notebook-confirm >
+                    <button class="modal--btn__confirm" title="Guardar" data-notebook-add-confirm >
                         Guardar
                     </button>
                 </nav>

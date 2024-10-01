@@ -5,29 +5,26 @@ import './app/theme.js';
 const $ = element => document.querySelector(element)
 const $$ = elements => document.querySelectorAll(elements)
 
-const sidebarMenu /*Barra Menu*/ = $('[data-sidebar]');
-const sidebarToggler = $$('[data-sidebar-toggler]');
-const sidebarOverlay = $('[data-sidebar-overlay]');
+const $sidebarMenu /*Barra Menu*/ = $('[data-sidebar]');
+const $BTN_sidebarToggler = $$('[data-sidebar-toggler]');
+const $BTN_sidebarToggle = $('[data-sidebar] [data-sidebar-toggler]')
+const $sidebarOverlay = $('[data-sidebar-overlay]');
+const $viewportOverlay = $('[data-main-overlay]');
 
-
-const screenWidthMayor = window.matchMedia('(width > 900px)');
-const screenWidth900 = window.matchMedia('(max-width: 900px)');
-const screenWidth600 = window.matchMedia('(max-width: 600px)');
-const screenWidth400 = window.matchMedia('(max-width: 400px)');
-
-
-// if (screenWidth.matches) {
-//   MENU_TOGGLE.checked = true;
-// } else {
-//   MENU_TOGGLE.removeAttribute("checked");
-// }
+const $BTN_notebookAdd = $('[data-notebook-add]');
+const $modalContainer = $('[data-modal]');
+const $modalNotebookAdd = $('[data-modal-notebook]');
+const $BTN_modalNotebookCancel = $('[data-modal-notebook] [data-notebook-cancel]');
+const $BTN_modalNoteAdd = $('[data-note-add]');
+const $modalNoteAdd = $('[data-modal-note]');
+const $BTN_modalNoteCancel = $('[data-modal-note] [data-note-cancel]');
 
 /*
 function addEventOnElements(elements, eventType, callback) {
     elements.forEach(element => element.addEventListener(eventType, callback));
 }
 
-addEventOnElements(sidebarTogglers, 'click', function(){
+addEventOnElements($sidebarTogglers, 'click', function(){
     sidebar.classList.toggle('active');
     overlay.classList.toggle('active');
 })
@@ -48,30 +45,87 @@ addEventOnElements(sidebarTogglers, 'click', function(){
  * [data-note-delete]       (btn) Funcion para eliminar una Nota de un Notebook
  * [data-note-add]          (btn) Funcion para agregar una nueva Nota al principio de Notebooks
  * [data-empty-notes]       Icono que aparece cuando no hay notas en un Notebook
+ * [data-modal]             El padre de las modales
  */
 
 
-/**
- * Crear un evento que escuche los cambios del tamaño del viewport y cuando sea mayor a 900px se ejecute una cunción
- * La función deberá retirar el nombre de la clase "active" del SidebarMenu y sidebarOverlay
- */
-if(screenWidthMayor.matches){
-    console.log("la pantalla es mayor de 900px")
-}
+
+window.addEventListener("resize", ()=> {
+    if(window.innerWidth > 900) {
+        $sidebarMenu.classList.remove('active');
+        $sidebarOverlay.classList.remove('active');
+    }
+});
 
 function addEventOnElements(elements, eventType, callback) {
     elements.forEach(element => element.addEventListener(eventType, callback));
 }
 
-addEventOnElements(sidebarToggler, 'click', ()=> {
-    sidebarMenu.classList.toggle('active');
+addEventOnElements($BTN_sidebarToggler, 'click', ()=> {
+    $sidebarMenu.classList.toggle('active');
+    $sidebarOverlay.classList.toggle('active');
 
-    if(screenWidth900.matches) {
-        sidebarOverlay.classList.toggle('active');
-    }
+    let classActive = $sidebarMenu.classList.contains('active');
+    
+    if(!classActive)
+        $BTN_sidebarToggle.disabled = true;
+    else if (classActive)
+        $BTN_sidebarToggle.removeAttribute('disabled')
+
+    $sidebarOverlay.addEventListener('click', () => {
+        $sidebarMenu.classList.remove('active');
+        $sidebarOverlay.classList.remove('active');
+    })
+
+    // if(screenWidth900.matches) {
+    //     sidebarOverlay.classList.toggle('active');
+    //     btnSidebarToggle.disabled.toggle;
+    // }
+
+    // if(sidebarMenu.classList.contains('active')){
+    //     console.log("El menu tiene la clase [active] ");
+    //     btnSidebarToggle.removeAttribute('disable')
+    // }
+    // else {
+    // }
 });
 
-sidebarOverlay.addEventListener('click', () => {
-    sidebarMenu.classList.toggle('active');
-    sidebarOverlay.classList.remove('active');
-})
+function ModalNotebookAddActivated() {
+    $viewportOverlay.classList.add('active');
+    $modalContainer.classList.add('open');
+    $modalNotebookAdd.classList.add('visible');
+}
+
+function ModalNotebookAddDeactivated() {
+    $viewportOverlay.classList.remove('active');
+    $modalContainer.classList.remove('open');
+    $modalNotebookAdd.classList.remove('visible');
+};
+
+function ModalNoteAddActivated() {
+    $viewportOverlay.classList.add('active');
+    $modalContainer.classList.add('open');
+    $modalNoteAdd.classList.add('visible');
+};
+
+function ModalNoteAddDeactivated() {
+    $viewportOverlay.classList.remove('active');
+    $modalContainer.classList.remove('open');
+    $modalNoteAdd.classList.remove('visible');
+};
+
+$BTN_notebookAdd.addEventListener('click', () => {
+    ModalNotebookAddActivated();
+});
+
+$BTN_modalNotebookCancel.addEventListener('click', () => {
+    ModalNotebookAddDeactivated();
+});
+
+$BTN_modalNoteAdd.addEventListener('click', () => {
+    ModalNoteAddActivated();
+});
+
+$BTN_modalNoteCancel.addEventListener('click', () => {
+    ModalNoteAddDeactivated();
+});

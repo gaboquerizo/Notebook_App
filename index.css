@@ -643,6 +643,7 @@ svg.logo__icon--github {
     
     input {
         padding: var(--space-025) var(--space-050);
+        color: var(--tx-color-1);
         &:focus {
             background-color: var(--secondary-color);
         }
@@ -653,6 +654,7 @@ svg.logo__icon--github {
         height: 160px;
         padding: var(--space-100);
         border: var(--solid-1) var(--bg-color-5);
+        background-color: var(--secondary-color);
         /* form-sizing: content; */
 
         &:focus {
