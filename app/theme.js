@@ -1,6 +1,6 @@
 /* Dark Mode + Preferencias de Usuario */
 
-const THEME_TOGGLE = document.querySelector('.theme-switch input');
+const THEME_TOGGLE = document.querySelector('[data-theme-switch]');
 const ROOT = document.documentElement;
 
 addEventListener('DOMContentLoaded', () => {

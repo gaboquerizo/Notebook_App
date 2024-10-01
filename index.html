@@ -12,213 +12,318 @@
     <link rel="stylesheet" href="assets/reset/normalize.css">
     <link rel="stylesheet" href="index.css">
 
-    <script defer src="index.js"></script>
-    <script defer src="./app/theme.js" type="module"></script>
-
+    <script defer src="index.js" type="module"></script>
 </head>
 <body>
-    <header class="sidebar" data-sidebar>
-        <section class="sb-hero">
-            <a href="./" class="icon-logo">
-                <svg viewBox="0 0 461.00 675.00">
+
+    <aside class="sidebar" data-sidebar>
+
+        <header class="sb__header">
+            <div class="header__logo">
+                <svg class="logo__icon" viewBox="0 0 461.00 675.00">
                     <g transform="translate(0.0,675.0) scale(0.1,-0.1)" fill="" stroke="none">
                     <path d="M2105 6739 c-134 -11 -214 -25 -376 -64 -163 -40 -248 -72 -437 -165 -230 -112 -403 -233 -581 -405 -199 -192 -310 -339 -440 -581 -345 -644 -357 -1431 -31 -2089 78 -157 177 -313 272 -428 413 -500 976 -794 1621 -848 362 -30 789 47 1122 201 692 319 1185 961 1309 1705 15 92 36 294 36 353 l0 32 -400 0 -400 0 0 -59 c0 -136 -45 -350 -106 -499 -188 -468 -573 -791 -1088 -914 -79 -19 -120 -22 -301 -22 -179 0 -224 3 -309 22 -595 132 -1042 578 -1168 1167 -25 118 -35 381 -19 496 27 184 83 359 163 509 68 126 96 167 195 282 149 172 264 259 488 369 130 64 184 85 290 111 l130 32 866 3 865 4 399 399 400 400 -1200 -1 c-660 -1 -1245 -5 -1300 -10z"></path>
                     <path d="M3787 2090 c-23 -212 -139 -496 -280 -685 -177 -237 -447 -435 -716 -524 -198 -66 -256 -75 -486 -75 -179 0 -224 3 -309 22 -279 62 -519 187 -725 377 l-57 54 -282 -282 -281 -282 74 -68 c319 -294 697 -490 1103 -573 364 -74 694 -67 1035 20 233 60 383 121 583 236 642 369 1071 1034 1140 1768 l7 72 -400 0 -400 0 -6 -60z"></path>
                     </g>
                 </svg>
-                <span>MAN<strong>GO</strong></span>
-            </a>
-            <button class="icon--svg" aria-label="Cerrar menu" data-sidebar-toggler>
-                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
-                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 5L5 19M5 5l14 14" color="currentColor" />
+            </div>
+            <button title="Cerrar menu" data-sidebar-toggler>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+                    <path fill="currentColor" d="M1.014 7.382a.5.5 0 0 0-.013.152c-.014.4.133.806.439 1.112l2.12 2.122a.5.5 0 1 0 .708-.708L2.208 8H14.5a.5.5 0 0 0 0-1H2.379l1.889-1.89a.5.5 0 0 0-.707-.706L1.44 6.524a1.5 1.5 0 0 0-.426.858M14.5 3h-7a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1m0 8h-7a.5.5 0 1 0 0 1h7a.5.5 0 1 0 0-1" />
                 </svg>
             </button>
-        </section>
-        
-        <section class="sb-title">
-            <h3>NOTEBOOKS</h3>
-            <button class="icon--svg icon--svg__box">
+        </header>
+
+        <section class="sb__title">
+            <h2>Notebooks</h2>
+            <button title="Crear nuevo notebook" data-add-notebook>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                     <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4v16m-8-8h16" color="currentColor" />
                 </svg>
             </button>
         </section>
 
-        <nav class="sb-nav" data-sidebar-list>
-            <div class="nav-item permanent">
-                <span class="sb-item--title" data-notebook-field>My notes</span>
-                <div class="sb-item--modifiers">
-                    <button class="icon--svg" data-edit-btn>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+        <section class="sb__navbar" data-sidebar-navbar>
+
+            <div class="navbar__item permanent" data-item-notebook>
+                <h3 class="navbar__item--title" data-notebook-title>
+                    My notes
+                </h3>
+                <nav class="navbar__item--btns">
+                    <button title="Editar" data-notebook-edit>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                             <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" color="currentColor">
                                 <path d="m16.214 4.982l1.402-1.401a1.982 1.982 0 0 1 2.803 2.803l-1.401 1.402m-2.804-2.804l-5.234 5.234c-1.045 1.046-1.568 1.568-1.924 2.205S8.342 14.561 8 16c1.438-.342 2.942-.7 3.579-1.056s1.16-.879 2.205-1.924l5.234-5.234m-2.804-2.804l2.804 2.804" />
                                 <path d="M21 12c0 4.243 0 6.364-1.318 7.682S16.242 21 12 21s-6.364 0-7.682-1.318S3 16.242 3 12s0-6.364 1.318-7.682S7.758 3 12 3" />
                             </g>
                         </svg>
                     </button>
-                    <button class="icon--svg" data-delete-btn>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                    <button title="Eliminar" data-notebook-delete>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                             <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m19.5 5.5l-.62 10.025c-.158 2.561-.237 3.842-.88 4.763a4 4 0 0 1-1.2 1.128c-.957.584-2.24.584-4.806.584c-2.57 0-3.855 0-4.814-.585a4 4 0 0 1-1.2-1.13c-.642-.922-.72-2.205-.874-4.77L4.5 5.5M3 5.5h18m-4.944 0l-.683-1.408c-.453-.936-.68-1.403-1.071-1.695a2 2 0 0 0-.275-.172C13.594 2 13.074 2 12.035 2c-1.066 0-1.599 0-2.04.234a2 2 0 0 0-.278.18c-.395.303-.616.788-1.058 1.757L8.053 5.5m1.447 11v-6m5 6v-6" color="currentColor" />
                         </svg>
                     </button>
-                </div>
+                </nav>
             </div>
-        </nav>
 
-        <section class="sb-footer">
-            <span>
-                2024 @gaboquerizo
-            </span>
-            <a href="https://github.com/gaboquerizo/" target="_blank" class="icon--svg">
-                <!-- <svg class="icon--svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" color="currentColor">
-                        <path d="M10 20.568c-3.429 1.157-6.286 0-8-3.568" />
-                        <path d="M10 22v-3.242c0-.598.184-1.118.48-1.588c.204-.322.064-.78-.303-.88C7.134 15.452 5 14.107 5 9.645c0-1.16.38-2.25 1.048-3.2c.166-.236.25-.354.27-.46c.02-.108-.015-.247-.085-.527c-.283-1.136-.264-2.343.16-3.43c0 0 .877-.287 2.874.96c.456.285.684.428.885.46s.469-.035 1.005-.169A9.5 9.5 0 0 1 13.5 3a9.6 9.6 0 0 1 2.343.28c.536.134.805.2 1.006.169c.2-.032.428-.175.884-.46c1.997-1.247 2.874-.96 2.874-.96c.424 1.087.443 2.294.16 3.43c-.07.28-.104.42-.084.526s.103.225.269.461c.668.95 1.048 2.04 1.048 3.2c0 4.462-2.134 5.807-5.177 6.643c-.367.101-.507.559-.303.88c.296.47.48.99.48 1.589V22" />
-                    </g>
-                </svg> -->
-                <svg class="icon--svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path fill="currentColor" d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5c.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34c-.46-1.16-1.11-1.47-1.11-1.47c-.91-.62.07-.6.07-.6c1 .07 1.53 1.03 1.53 1.03c.87 1.52 2.34 1.07 2.91.83c.09-.65.35-1.09.63-1.34c-2.22-.25-4.55-1.11-4.55-4.92c0-1.11.38-2 1.03-2.71c-.1-.25-.45-1.29.1-2.64c0 0 .84-.27 2.75 1.02c.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02c.55 1.35.2 2.39.1 2.64c.65.71 1.03 1.6 1.03 2.71c0 3.82-2.34 4.66-4.57 4.91c.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"></path>
-                </svg>
-            </a>
+            <!-- Ejemplos extras inicio -->
+            <div class="navbar__item permanent" data-item-notebook>
+                <h3 class="navbar__item--title" data-notebook-title>
+                    My notes
+                </h3>
+                <nav class="navbar__item--btns">
+                    <button title="Editar" data-notebook-edit>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" color="currentColor">
+                                <path d="m16.214 4.982l1.402-1.401a1.982 1.982 0 0 1 2.803 2.803l-1.401 1.402m-2.804-2.804l-5.234 5.234c-1.045 1.046-1.568 1.568-1.924 2.205S8.342 14.561 8 16c1.438-.342 2.942-.7 3.579-1.056s1.16-.879 2.205-1.924l5.234-5.234m-2.804-2.804l2.804 2.804" />
+                                <path d="M21 12c0 4.243 0 6.364-1.318 7.682S16.242 21 12 21s-6.364 0-7.682-1.318S3 16.242 3 12s0-6.364 1.318-7.682S7.758 3 12 3" />
+                            </g>
+                        </svg>
+                    </button>
+                    <button title="Eliminar" data-notebook-delete>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m19.5 5.5l-.62 10.025c-.158 2.561-.237 3.842-.88 4.763a4 4 0 0 1-1.2 1.128c-.957.584-2.24.584-4.806.584c-2.57 0-3.855 0-4.814-.585a4 4 0 0 1-1.2-1.13c-.642-.922-.72-2.205-.874-4.77L4.5 5.5M3 5.5h18m-4.944 0l-.683-1.408c-.453-.936-.68-1.403-1.071-1.695a2 2 0 0 0-.275-.172C13.594 2 13.074 2 12.035 2c-1.066 0-1.599 0-2.04.234a2 2 0 0 0-.278.18c-.395.303-.616.788-1.058 1.757L8.053 5.5m1.447 11v-6m5 6v-6" color="currentColor" />
+                        </svg>
+                    </button>
+                </nav>
+            </div>
+            <div class="navbar__item permanent" data-item-notebook>
+                <h3 class="navbar__item--title" data-notebook-title>
+                    My notes
+                </h3>
+                <nav class="navbar__item--btns">
+                    <button title="Editar" data-notebook-edit>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" color="currentColor">
+                                <path d="m16.214 4.982l1.402-1.401a1.982 1.982 0 0 1 2.803 2.803l-1.401 1.402m-2.804-2.804l-5.234 5.234c-1.045 1.046-1.568 1.568-1.924 2.205S8.342 14.561 8 16c1.438-.342 2.942-.7 3.579-1.056s1.16-.879 2.205-1.924l5.234-5.234m-2.804-2.804l2.804 2.804" />
+                                <path d="M21 12c0 4.243 0 6.364-1.318 7.682S16.242 21 12 21s-6.364 0-7.682-1.318S3 16.242 3 12s0-6.364 1.318-7.682S7.758 3 12 3" />
+                            </g>
+                        </svg>
+                    </button>
+                    <button title="Eliminar" data-notebook-delete>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m19.5 5.5l-.62 10.025c-.158 2.561-.237 3.842-.88 4.763a4 4 0 0 1-1.2 1.128c-.957.584-2.24.584-4.806.584c-2.57 0-3.855 0-4.814-.585a4 4 0 0 1-1.2-1.13c-.642-.922-.72-2.205-.874-4.77L4.5 5.5M3 5.5h18m-4.944 0l-.683-1.408c-.453-.936-.68-1.403-1.071-1.695a2 2 0 0 0-.275-.172C13.594 2 13.074 2 12.035 2c-1.066 0-1.599 0-2.04.234a2 2 0 0 0-.278.18c-.395.303-.616.788-1.058 1.757L8.053 5.5m1.447 11v-6m5 6v-6" color="currentColor" />
+                        </svg>
+                    </button>
+                </nav>
+            </div>
+            <!-- Ejemplos extras fin -->
+
         </section>
 
-    </header>
-
-    <div class="overlay" data-sidebar-overlay></div>
-
-    <main class="main-content">
-        <article class="header">
-            <section>
-                <div class="main-menu icon--svg icon--svg__box" data-sidebar-toggler>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 4.5h16m-16 10h16m-16-5h16m-16 10h16" color="currentColor" />
-                    </svg>
-                </div>
-            </section>
-            <section class="mh-menu">
-                <h1 class="greeting">Bienvenido</h1>
-
-                <div class="date-time">
-                    <span class="time">12:36</span>
-                    <span class="date">lun, 22 Ago 2024</span>
-                </div>
-            </section>
-            <section>
-                <div class="theme-switch">
-                    <label class="icon--svg icon--svg__box" tabindex="0">
-                        <input type="checkbox">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path class="light" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 18a6 6 0 1 0 0-12a6 6 0 0 0 0 12m10-6h1M12 2V1m0 22v-1m8-2l-1-1m1-15l-1 1M4 20l1-1M4 4l1 1m-4 7h1"></path>
-                            <path class="dark" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 21a9 9 0 0 0 8.997-9.252a7 7 0 0 1-10.371-8.643A9 9 0 0 0 12 21"></path>
-                        </svg>
-                    </label>
-                </div>
-            </section>
-        </article>
-        <article class="add-note "> <!-- fab -->
-            <div class="icon--svg icon--svg__box">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v8m4-4H8m-5.5 0c0-4.478 0-6.718 1.391-8.109S7.521 2.5 12 2.5c4.478 0 6.718 0 8.109 1.391S21.5 7.521 21.5 12c0 4.478 0 6.718-1.391 8.109S16.479 21.5 12 21.5c-4.478 0-6.718 0-8.109-1.391S2.5 16.479 2.5 12" color="currentColor" />
+        <footer class="sb__footer">
+            <p>2024 @gaboquerizo</p>
+            <a href="https://github.com/gaboquerizo/" target="_blank" title="Repositorio del proyecto">
+                <svg class="logo__icon--github" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path fill="currentColor" d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5c.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34c-.46-1.16-1.11-1.47-1.11-1.47c-.91-.62.07-.6.07-.6c1 .07 1.53 1.03 1.53 1.03c.87 1.52 2.34 1.07 2.91.83c.09-.65.35-1.09.63-1.34c-2.22-.25-4.55-1.11-4.55-4.92c0-1.11.38-2 1.03-2.71c-.1-.25-.45-1.29.1-2.64c0 0 .84-.27 2.75 1.02c.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02c.55 1.35.2 2.39.1 2.64c.65.71 1.03 1.6 1.03 2.71c0 3.82-2.34 4.66-4.57 4.91c.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"></path>
                 </svg>
-                <span>
-                    Nueva nota
-                </span>
-            </div>
-        </article>
-        
-        <article class="note-list" data-note-panel>
-            
-            <div class="note">
-                <h3 class="note-title">Hola mundo</h3>
-                <p class="note-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio delectus fugiat animi recusandae ut qui ex totam molestias quidem cum doloribus labore perferendis, quas officiis, nihil voluptate fugit cupiditate ab?</p>
-                <div class="note-footer">
-                    <span class="date">20 min ago</span>
-                    <button class="icon--svg" data-delete-note>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
-                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m19.5 5.5l-.62 10.025c-.158 2.561-.237 3.842-.88 4.763a4 4 0 0 1-1.2 1.128c-.957.584-2.24.584-4.806.584c-2.57 0-3.855 0-4.814-.585a4 4 0 0 1-1.2-1.13c-.642-.922-.72-2.205-.874-4.77L4.5 5.5M3 5.5h18m-4.944 0l-.683-1.408c-.453-.936-.68-1.403-1.071-1.695a2 2 0 0 0-.275-.172C13.594 2 13.074 2 12.035 2c-1.066 0-1.599 0-2.04.234a2 2 0 0 0-.278.18c-.395.303-.616.788-1.058 1.757L8.053 5.5m1.447 11v-6m5 6v-6" color="currentColor" />
-                        </svg>
-                    </button>
-                </div>
-            </div>
-            <div class="note">
-                <h3 class="note-title">Hola mundo</h3>
-                <p class="note-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio delectus fugiat animi recusandae ut qui ex totam molestias quidem cum doloribus labore perferendis, quas officiis, nihil voluptate fugit cupiditate ab?</p>
-                <div class="note-footer">
-                    <span class="date">20 min ago</span>
-                    <button class="icon--svg" data-delete-note>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
-                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m19.5 5.5l-.62 10.025c-.158 2.561-.237 3.842-.88 4.763a4 4 0 0 1-1.2 1.128c-.957.584-2.24.584-4.806.584c-2.57 0-3.855 0-4.814-.585a4 4 0 0 1-1.2-1.13c-.642-.922-.72-2.205-.874-4.77L4.5 5.5M3 5.5h18m-4.944 0l-.683-1.408c-.453-.936-.68-1.403-1.071-1.695a2 2 0 0 0-.275-.172C13.594 2 13.074 2 12.035 2c-1.066 0-1.599 0-2.04.234a2 2 0 0 0-.278.18c-.395.303-.616.788-1.058 1.757L8.053 5.5m1.447 11v-6m5 6v-6" color="currentColor" />
-                        </svg>
-                    </button>
-                </div>
-            </div>
-            <div class="note">
-                <h3 class="note-title">Hola mundo</h3>
-                <p class="note-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio delectus fugiat animi recusandae ut qui ex totam molestias quidem cum doloribus labore perferendis, quas officiis, nihil voluptate fugit cupiditate ab?</p>
-                <div class="note-footer">
-                    <span class="date">20 min ago</span>
-                    <button class="icon--svg" data-delete-note>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
-                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m19.5 5.5l-.62 10.025c-.158 2.561-.237 3.842-.88 4.763a4 4 0 0 1-1.2 1.128c-.957.584-2.24.584-4.806.584c-2.57 0-3.855 0-4.814-.585a4 4 0 0 1-1.2-1.13c-.642-.922-.72-2.205-.874-4.77L4.5 5.5M3 5.5h18m-4.944 0l-.683-1.408c-.453-.936-.68-1.403-1.071-1.695a2 2 0 0 0-.275-.172C13.594 2 13.074 2 12.035 2c-1.066 0-1.599 0-2.04.234a2 2 0 0 0-.278.18c-.395.303-.616.788-1.058 1.757L8.053 5.5m1.447 11v-6m5 6v-6" color="currentColor" />
-                        </svg>
-                    </button>
-                </div>
-            </div>
-            <div class="note">
-                <h3 class="note-title">Hola mundo</h3>
-                <p class="note-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio delectus fugiat animi recusandae ut qui ex totam molestias quidem cum doloribus labore perferendis, quas officiis, nihil voluptate fugit cupiditate ab?</p>
-                <div class="note-footer">
-                    <span class="date">20 min ago</span>
-                    <button class="icon--svg" data-delete-note>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
-                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m19.5 5.5l-.62 10.025c-.158 2.561-.237 3.842-.88 4.763a4 4 0 0 1-1.2 1.128c-.957.584-2.24.584-4.806.584c-2.57 0-3.855 0-4.814-.585a4 4 0 0 1-1.2-1.13c-.642-.922-.72-2.205-.874-4.77L4.5 5.5M3 5.5h18m-4.944 0l-.683-1.408c-.453-.936-.68-1.403-1.071-1.695a2 2 0 0 0-.275-.172C13.594 2 13.074 2 12.035 2c-1.066 0-1.599 0-2.04.234a2 2 0 0 0-.278.18c-.395.303-.616.788-1.058 1.757L8.053 5.5m1.447 11v-6m5 6v-6" color="currentColor" />
-                        </svg>
-                    </button>
-                </div>
-            </div>
-            <div class="note">
-                <h3 class="note-title">Hola mundo</h3>
-                <p class="note-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio delectus fugiat animi recusandae ut qui ex totam molestias quidem cum doloribus labore perferendis, quas officiis, nihil voluptate fugit cupiditate ab?</p>
-                <div class="note-footer">
-                    <span class="date">20 min ago</span>
-                    <button class="icon--svg" data-delete-note>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
-                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m19.5 5.5l-.62 10.025c-.158 2.561-.237 3.842-.88 4.763a4 4 0 0 1-1.2 1.128c-.957.584-2.24.584-4.806.584c-2.57 0-3.855 0-4.814-.585a4 4 0 0 1-1.2-1.13c-.642-.922-.72-2.205-.874-4.77L4.5 5.5M3 5.5h18m-4.944 0l-.683-1.408c-.453-.936-.68-1.403-1.071-1.695a2 2 0 0 0-.275-.172C13.594 2 13.074 2 12.035 2c-1.066 0-1.599 0-2.04.234a2 2 0 0 0-.278.18c-.395.303-.616.788-1.058 1.757L8.053 5.5m1.447 11v-6m5 6v-6" color="currentColor" />
-                        </svg>
-                    </button>
-                </div>
-            </div>
-            <div class="note">
-                <h3 class="note-title">Hola mundo</h3>
-                <p class="note-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio delectus fugiat animi recusandae ut qui ex totam molestias quidem cum doloribus labore perferendis, quas officiis, nihil voluptate fugit cupiditate ab?</p>
-                <div class="note-footer">
-                    <span class="date">20 min ago</span>
-                    <button class="icon--svg" data-delete-note>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
-                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m19.5 5.5l-.62 10.025c-.158 2.561-.237 3.842-.88 4.763a4 4 0 0 1-1.2 1.128c-.957.584-2.24.584-4.806.584c-2.57 0-3.855 0-4.814-.585a4 4 0 0 1-1.2-1.13c-.642-.922-.72-2.205-.874-4.77L4.5 5.5M3 5.5h18m-4.944 0l-.683-1.408c-.453-.936-.68-1.403-1.071-1.695a2 2 0 0 0-.275-.172C13.594 2 13.074 2 12.035 2c-1.066 0-1.599 0-2.04.234a2 2 0 0 0-.278.18c-.395.303-.616.788-1.058 1.757L8.053 5.5m1.447 11v-6m5 6v-6" color="currentColor" />
-                        </svg>
-                    </button>
-                </div>
-            </div>
-            <div class="note">
-                <h3 class="note-title">Hola mundo</h3>
-                <p class="note-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio delectus fugiat animi recusandae ut qui ex totam molestias quidem cum doloribus labore perferendis, quas officiis, nihil voluptate fugit cupiditate ab?</p>
-                <div class="note-footer">
-                    <span class="date">20 min ago</span>
-                    <button class="icon--svg" data-delete-note>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
-                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m19.5 5.5l-.62 10.025c-.158 2.561-.237 3.842-.88 4.763a4 4 0 0 1-1.2 1.128c-.957.584-2.24.584-4.806.584c-2.57 0-3.855 0-4.814-.585a4 4 0 0 1-1.2-1.13c-.642-.922-.72-2.205-.874-4.77L4.5 5.5M3 5.5h18m-4.944 0l-.683-1.408c-.453-.936-.68-1.403-1.071-1.695a2 2 0 0 0-.275-.172C13.594 2 13.074 2 12.035 2c-1.066 0-1.599 0-2.04.234a2 2 0 0 0-.278.18c-.395.303-.616.788-1.058 1.757L8.053 5.5m1.447 11v-6m5 6v-6" color="currentColor" />
-                        </svg>
-                    </button>
-                </div>
+                <!-- GitHub -->
+            </a>
+        </footer>
+
+    </aside>
+
+    
+    <div class="overlay" data-sidebar-overlay></div>
+    <div class="overlay" data-main-overlay></div>
+
+
+    <main class="main--content" >
+
+        <header class="main--header" >
+
+            <div class="main--header__toggler">
+                <button title="Menu" data-sidebar-toggler>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 5h16M4 12h16M4 19h16" color="currentColor" />
+                    </svg>
+                </button>
+
+                <h1 data-header-title>📘 Notebook title</h1>
             </div>
 
+            <div class="main--header__info">
+                <div class="current--data">
+                    <h3 class="time__data">12:36</h3>
+                    <span class="date__data">lun, 22 Ago 2024</span>
+                </div>
+
+                <label class="theme--switch" title="Color Scheme">
+                    <input type="checkbox" data-theme-switch />
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path class="light" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 18a6 6 0 1 0 0-12a6 6 0 0 0 0 12m10-6h1M12 2V1m0 22v-1m8-2l-1-1m1-15l-1 1M4 20l1-1M4 4l1 1m-4 7h1"></path>
+                        <path class="dark" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 21a9 9 0 0 0 8.997-9.252a7 7 0 0 1-10.371-8.643A9 9 0 0 0 12 21"></path>
+                    </svg>
+                </label>
+            </div>
+            
+        </header>
+
+        <section class="notes--panel" data-notes-panel>
+
+            <div class="note">
+                <header>
+                    <h3 data-note-title>Hola mundo</h3>
+                </header>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio delectus fugiat animi recusandae ut qui ex totam molestias quidem.</p>
+                <footer>
+                    <span class="date">20 min ago</span>
+                    <button title="Eliminar" data-note-delete >
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m19.5 5.5l-.62 10.025c-.158 2.561-.237 3.842-.88 4.763a4 4 0 0 1-1.2 1.128c-.957.584-2.24.584-4.806.584c-2.57 0-3.855 0-4.814-.585a4 4 0 0 1-1.2-1.13c-.642-.922-.72-2.205-.874-4.77L4.5 5.5M3 5.5h18m-4.944 0l-.683-1.408c-.453-.936-.68-1.403-1.071-1.695a2 2 0 0 0-.275-.172C13.594 2 13.074 2 12.035 2c-1.066 0-1.599 0-2.04.234a2 2 0 0 0-.278.18c-.395.303-.616.788-1.058 1.757L8.053 5.5m1.447 11v-6m5 6v-6" color="currentColor" />
+                        </svg>
+                    </button>
+                </footer>
+            </div>
+
+            <div class="note">
+                <header>
+                    <h3 data-note-title>Hola mundo</h3>
+                </header>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio delectus fugiat animi recusandae ut qui ex totam molestias quidem.</p>
+                <footer>
+                    <span class="date">20 min ago</span>
+                    <button title="Eliminar" data-note-delete >
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m19.5 5.5l-.62 10.025c-.158 2.561-.237 3.842-.88 4.763a4 4 0 0 1-1.2 1.128c-.957.584-2.24.584-4.806.584c-2.57 0-3.855 0-4.814-.585a4 4 0 0 1-1.2-1.13c-.642-.922-.72-2.205-.874-4.77L4.5 5.5M3 5.5h18m-4.944 0l-.683-1.408c-.453-.936-.68-1.403-1.071-1.695a2 2 0 0 0-.275-.172C13.594 2 13.074 2 12.035 2c-1.066 0-1.599 0-2.04.234a2 2 0 0 0-.278.18c-.395.303-.616.788-1.058 1.757L8.053 5.5m1.447 11v-6m5 6v-6" color="currentColor" />
+                        </svg>
+                    </button>
+                </footer>
+            </div>
+
+            <div class="note--add__new">
+                <button title="Agregar nueva nota" data-note-add>
+                    <h3>Add new note</h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4v16m-8-8h16" color="currentColor" />
+                    </svg>
+                </button>
+            </div>
+
+        </section>
+
+        <footer class="empty--notes" data-empty-notes>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" color="currentColor">
+                    <path d="m12.88 7.017l4.774 1.271m-5.796 2.525l2.386.636m-2.267 6.517l.954.255c2.7.72 4.05 1.079 5.114.468c1.063-.61 1.425-1.953 2.148-4.637l1.023-3.797c.724-2.685 1.085-4.027.471-5.085s-1.963-1.417-4.664-2.136l-.954-.255c-2.7-.72-4.05-1.079-5.113-.468c-1.064.61-1.426 1.953-2.15 4.637l-1.022 3.797c-.724 2.685-1.086 4.027-.471 5.085c.614 1.057 1.964 1.417 4.664 2.136" />
+                    <path d="m12 20.946l-.952.26c-2.694.733-4.04 1.1-5.102.477c-1.06-.622-1.422-1.99-2.143-4.728l-1.021-3.872c-.722-2.737-1.083-4.106-.47-5.184C2.842 6.966 4 7 5.5 7" />
+                </g>
+            </svg>
+            <h3>No hay notas</h3>
+        </footer>
+
+        <article class="modal" data-modal>
+
+            <section class="modal--new__notebook" data-modal-notebook >
+                <header class="modal--header__icon" title="Cuaderno">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" color="currentColor">
+                            <path d="M12 22c-4.243 0-6.364 0-7.682-1.465C3 19.072 3 16.714 3 12s0-7.071 1.318-8.536S7.758 2 12 2s6.364 0 7.682 1.464C21 4.93 21 7.286 21 12s0 7.071-1.318 8.535S16.242 22 12 22" />
+                            <path d="M8 2.5v7.326c0 1.247 0 1.87.386 2.094c.749.432 2.152-1.01 2.819-1.444c.387-.252.58-.378.795-.378s.408.126.795.378c.667.434 2.07 1.876 2.819 1.444c.386-.223.386-.847.386-2.094V2.5" />
+                        </g>
+                    </svg>
+                </header>
+                <input class="modal--title" data-notebook-title type="text" placeholder="New notebook" value="New notebook">
+                <nav>
+                    <button class="modal--btn__cancel" title="Cancelar" data-notebook-cancel >
+                        Cancelar
+                    </button>
+                    <button class="modal--btn__confirm" title="Guardar" data-add-notebook-confirm >
+                        Guardar
+                    </button>
+                </nav>
+            </section>
+            
+            
+            <section class="modal--delete__notebook" data-modal-notebook-delete >
+                <header class="modal--header__icon" title="Eliminar notebook">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" color="currentColor">
+                            <path d="M12 22c-4.243 0-6.364 0-7.682-1.465C3 19.072 3 16.714 3 12s0-7.071 1.318-8.536S7.758 2 12 2s6.364 0 7.682 1.464C21 4.93 21 7.286 21 12s0 7.071-1.318 8.535S16.242 22 12 22" />
+                            <path d="M8 2.5v7.326c0 1.247 0 1.87.386 2.094c.749.432 2.152-1.01 2.819-1.444c.387-.252.58-.378.795-.378s.408.126.795.378c.667.434 2.07 1.876 2.819 1.444c.386-.223.386-.847.386-2.094V2.5" />
+                        </g>
+                    </svg>
+                </header>
+                <h3>
+                    Estás segudo de que quieres eliminar
+                    <strong data-notebook-title>
+                        My notes
+                    </strong>
+                </h3>
+                <nav>
+                    <button class="modal--btn__cancel" title="Cancelar" data-notebook-cancel >
+                        Cancelar
+                    </button>
+                    <button class="modal--btn__confirm" title="Eliminar" data-notebook-delete-confirm >
+                        Eliminar
+                    </button>
+                </nav>
+            </section>
+
+
+            <section class="modal--new__note" data-modal-note>
+                <header class="modal--header__icon" title="Nota">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" color="currentColor">
+                            <path d="M17 2v2m-5-2v2M7 2v2M3.5 16V9c0-2.828 0-4.243.879-5.121C5.257 3 6.672 3 9.5 3h5c2.828 0 4.243 0 5.121.879c.879.878.879 2.293.879 5.121v3c0 4.714 0 7.071-1.465 8.535C17.572 22 15.215 22 10.5 22h-1c-2.828 0-4.243 0-5.121-.879C3.5 20.243 3.5 18.828 3.5 16M8 15h4m-4-5h8" />
+                            <path d="M20.5 14.5A2.5 2.5 0 0 1 18 17c-.5 0-1.088-.087-1.573.043a1.25 1.25 0 0 0-.884.884c-.13.485-.043 1.074-.043 1.573A2.5 2.5 0 0 1 13 22" />
+                        </g>
+                    </svg>
+                </header>
+                <input class="modal--title" data-note-title type="text" placeholder="New note" value="New note">
+                <textarea placeholder="Escribe aquí..." class="modal-text"></textarea>
+                <nav>
+                    <button class="modal--btn__cancel" title="Cancelar" data-note-cancel >
+                        Cancelar
+                    </button>
+                    <button class="modal--btn__confirm" title="Gurdar" data-note-add-confirm >
+                        Guardar
+                    </button>
+                </nav>
+            </section>
+
+
+            <section class="modal--delete__note" data-modal-note-delete >
+                <header class="modal--header__icon" title="Eliminar nota">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" color="currentColor">
+                            <path d="M17 2v2m-5-2v2M7 2v2M3.5 16V9c0-2.828 0-4.243.879-5.121C5.257 3 6.672 3 9.5 3h5c2.828 0 4.243 0 5.121.879c.879.878.879 2.293.879 5.121v3c0 4.714 0 7.071-1.465 8.535C17.572 22 15.215 22 10.5 22h-1c-2.828 0-4.243 0-5.121-.879C3.5 20.243 3.5 18.828 3.5 16M8 15h4m-4-5h8" />
+                            <path d="M20.5 14.5A2.5 2.5 0 0 1 18 17c-.5 0-1.088-.087-1.573.043a1.25 1.25 0 0 0-.884.884c-.13.485-.043 1.074-.043 1.573A2.5 2.5 0 0 1 13 22" />
+                        </g>
+                    </svg>
+                </header>
+                <h3>
+                    Estás segudo de que quieres eliminar
+                    <strong data-note-title>
+                        My notes
+                    </strong>
+                </h3>
+                <nav>
+                    <button class="modal--btn__cancel" title="Cancelar" data-note-cancel >
+                        Cancelar
+                    </button>
+                    <button class="modal--btn__confirm" title="Eliminar" data-note-delete-confirm >
+                        Eliminar
+                    </button>
+                </nav>
+            </section>
+
         </article>
+
+    </main>
+
+
+
+
+
+
+
+
 
         <!-- Modal view start -->
         <!-- <article class="modal">
             <button class="btn-close icon--svg">
-                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                     <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 5L5 19M5 5l14 14" color="currentColor" />
                 </svg>
             </button>
@@ -251,19 +356,6 @@
             </div>
         </article> -->
         <!-- Modal view end -->
-        
-        <!-- Background icon start -->
-            <!-- <div class="empty-notes">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" color="currentColor">
-                        <path d="m12.88 7.017l4.774 1.271m-5.796 2.525l2.386.636m-2.267 6.517l.954.255c2.7.72 4.05 1.079 5.114.468c1.063-.61 1.425-1.953 2.148-4.637l1.023-3.797c.724-2.685 1.085-4.027.471-5.085s-1.963-1.417-4.664-2.136l-.954-.255c-2.7-.72-4.05-1.079-5.113-.468c-1.064.61-1.426 1.953-2.15 4.637l-1.022 3.797c-.724 2.685-1.086 4.027-.471 5.085c.614 1.057 1.964 1.417 4.664 2.136" />
-                        <path d="m12 20.946l-.952.26c-2.694.733-4.04 1.1-5.102.477c-1.06-.622-1.422-1.99-2.143-4.728l-1.021-3.872c-.722-2.737-1.083-4.106-.47-5.184C2.842 6.966 4 7 5.5 7" />
-                    </g>
-                </svg>
-                <h3>No hay notas</h3>
-            </div> -->
-        <!-- Background icon end -->
 
-    </main>
 </body>
 </html>
