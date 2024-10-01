@@ -296,6 +296,7 @@ svg.logo__icon {
 
 .sb__navbar {
     height: 100%;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
     gap: var(--space-050);
@@ -335,6 +336,11 @@ svg.logo__icon {
     opacity: 0;
 
     transition: all var(--trans-1);
+
+    @media ( max-width: 900px ) {
+        width: 68px;
+        opacity: 1;
+    }
 
     button:focus {
         outline: none;
@@ -521,6 +527,13 @@ svg.logo__icon--github {
 
         transition: var(--trans-1);
         transition-property: opacity, width;
+    }
+
+    @media ( max-width: 900px ) {
+        [data-note-delete] {
+            width: 32px;
+            opacity: 1;
+        }
     }
 
     &:hover {
