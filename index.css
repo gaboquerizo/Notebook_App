@@ -27,16 +27,16 @@
     --typeface: 'Exo 2', system-ui, -apple-system, sans-serif;
     font-family: var(--typeface);
     /*——————————— Sizes ———————————*/
-    --size-05: 8px;
-    --size-1: 16px;
-    --size-2: 20px;
-    --size-3: 24px;
-    --size-4: 28px;
-    --size-5: 32px;
-    --size-6: 36px;
-    --size-7: 40px;
-    --size-8: 48px;
-    --size-9: 64px;
+    --size-1: 8px;
+    --size-2: 12px;
+    --size-3: 16px;
+    --size-4: 18px;
+    --size-5: 20px;
+    --size-6: 22px;
+    --size-7: 24px;
+    --size-8: 28px;
+    --size-9: 32px;
+
     /*—————————— Spacing ——————————*/
     --space-025: 0.25em;
     --space-050: 0.50em;
@@ -146,7 +146,7 @@ button:disabled { pointer-events: none; }
 /*———————— HTML Element styles ————————*/
 
 html {
-    font-size: var(--size-1);
+    font-size: var(--size-3);
     scroll-behavior: smooth;
 }
 
@@ -411,11 +411,7 @@ svg.logo__icon--github {
     position: relative;
 
     @media (max-width: 600px) {
-        padding-inline: var(--space-100);
-    }
-
-    @media (max-width: 400px) {
-        padding-inline: var(--space-050);
+        padding: var(--space-100);
     }
 }
 
@@ -431,29 +427,35 @@ svg.logo__icon--github {
 
 .main--header {
     justify-content: space-between;
+
+    @media (max-width: 900px) {
+        
+    }
     
     @media (max-width: 600px) {
-        h1 {
-            font-size: var(--size-3);
-        }
+        
 
         .current--data {
             display: none;
         }
+    }
+
+    @media (max-width: 400px) {
+        
     }
 }
 
 .current--data {
     text-align: right;
     align-content: center;
-    .time__data {
-        font-size: var(--size-4);
-        font-weight: 400;
-    }
-    .date__data {
-        font-size: var(--size-1);
-        color: var(--tx-color-2)
-    }
+}
+.time__data {
+    font-size: var(--size-4);
+    font-weight: 400;
+}
+.date__data {
+    font-size: var(--size-3);
+    color: var(--tx-color-2)
 }
 
 /*———————— Notes panel ————————*/
@@ -468,6 +470,10 @@ svg.logo__icon--github {
     height: 100%;
     margin-block: var(--space-200);
     gap: var(--space-100);
+
+    @media (max-width: 400px) {
+        margin-block: var(--space-100);
+    }
 }
 
 .note--add__new {
@@ -508,10 +514,6 @@ svg.logo__icon--github {
     gap: var(--space-100);
     cursor: pointer;
 
-    h3 {
-        font-size: var(--size-2);
-    }
-
     p {
         height: 100%;
     }
@@ -532,6 +534,28 @@ svg.logo__icon--github {
 
     &:active {
         outline: var(--solid-4) var(--bg-color-3);
+    }
+
+    @media (max-width: 900px) {
+
+    }
+    
+    @media (max-width: 600px) {
+        padding: var(--space-100);
+        gap: var(--space-050);
+
+        .current--data {
+            display: none;
+        }
+    }
+
+    @media (max-width: 400px) {
+        p {
+            font-size: 14px;
+        }
+        footer {
+            font-size: 14px;
+        }
     }
 }
 
@@ -560,6 +584,7 @@ svg.logo__icon--github {
     display: flex;
 }
 
+/*———————— Modal styles ————————*/
 
 .modal {
     width: 100%;
@@ -588,7 +613,8 @@ svg.logo__icon--github {
     }
 
     @media (max-width: 400px) {
-        padding-inline: var(--space-050);
+        top: 30%;
+        padding-inline: var(--space-100);
     }
 }
 
@@ -605,7 +631,11 @@ svg.logo__icon--github {
 }
 
 .modal--header__icon + * {
-    margin-top: var(--space-050);
+    margin-top: var(--space-100);
+    
+    @media (max-width: 400px) {
+        margin-top: var(--space-150);
+    }
 }
 
 .modal--new__notebook,
@@ -669,18 +699,25 @@ svg.logo__icon--github {
         display: flex;
     }
 
-    .modal--title {
-        font-size: var(--size-4);
-    }
-
     @media (max-width: 900px) {
         width: 100%;
     }
 
+    @media (max-width: 400px) {
+
+        padding: var(--space-100);
+
+        
+    }
 }
 
-.modal--new__notebook input {
+.modal--title {
+    font-size: var(--size-4);
     background-color: var(--secondary-color);
+
+    @media (max-width: 400px) {
+        font-size: 24px;
+    }
 }
 
 .modal--btn__confirm {
@@ -708,61 +745,34 @@ svg.logo__icon--github {
     }
 }
 
-
-
-
-
-/* . Modal . 
-.modal {
-    background-color: var(--bg-color-1);
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: calc(100% - calc(var(--space-6) * 2));
-    
-    padding: var(--space-5);
-    border-radius: var(--radius-3);
-    background-color: var(--bg-color-1);
-    outline: solid var(--solid-1) var(--bg-color-3);
-    z-index: 3;
-    
-    animation: modal-open var(--transition-3) forwards;
-}
-
-@keyframes modal-open {
-    0% {
-        transform: scale(1.5);
-        transform: translate(-50%, -30%);
-        opacity: 0;
-        visibility: hidden;
-    }
-    100% {
-        transform: translate(-50%, -50%);
-        opacity: 1;
-        visibility: visible;
-    }
-}
-
-*/
-
-
-
-
+/*———————— Responsive Web Design ————————*/
 
 @media (min-width: 900px) {
     body {
         padding-left: var(--sidebar-width);
     }
-    .sb-hero button {
-        display: none;
+    h1 {
+        font-size: var(--size-8);
+    }
+    h3 {
+        font-size: var(--size-5);
     }
 }
 
 @media (min-width: 600px) {
-
+    h1 {
+        font-size: var(--size-7);
+    }
+    h3 {
+        font-size: var(--size-4);
+    }
 }
 
 @media (min-width: 400px) {
-
+    h1 {
+        font-size: var(--size-6);
+    }
+    h3 {
+        font-size: var(--size-3);
+    }
 }
