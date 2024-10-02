@@ -264,7 +264,7 @@ button:has(svg) {
 .sb__header,
 .sb__title,
 .navbar__item,
-.navbar__item--btns,
+.navbar__item--btn,
 .sb__footer {
     padding: var(--space-050);
     display: flex;
@@ -299,6 +299,7 @@ svg.logo__icon {
     overflow-y: auto;
     display: flex;
     flex-direction: column;
+    padding: var(--space-025);
     gap: var(--space-050);
 }
 
@@ -306,27 +307,28 @@ svg.logo__icon {
     background-color: var(--secondary-color);
     border: var(--solid-1) var(--bg-color-3);
     border-radius: var(--radius-3);
-    box-shadow: var(--shadow-low);
+    
     cursor: pointer;
-
-    &:hover {
-        border-color: var(--accent-color);
-    }
 
     &:active {
         outline: var(--solid-4) var(--bg-color-3);
+    }
+
+    &.active {
+        box-shadow: var(--shadow-low);
+        background-color: var(--primary-color);
     }
 }
 
 .navbar__item--title {
     margin-left: var(--space-050);
-    max-width: 150px;
+    max-width: 180px;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
 }
 
-.navbar__item--btns {
+.navbar__item--btn, .note__item--btn {
     padding: 0;
     gap: var(--space-025);
     
@@ -338,7 +340,7 @@ svg.logo__icon {
     transition: all var(--trans-1);
 
     @media ( max-width: 900px ) {
-        width: 68px;
+        width: 32px;
         opacity: 1;
     }
 
@@ -347,8 +349,9 @@ svg.logo__icon {
     }
 }
 
-.navbar__item:where(:hover) .navbar__item--btns {
-    width: 68px;
+.navbar__item:where(:hover) .navbar__item--btn,
+.note:where(:hover) .note__item--btn {
+    width: 32px;
     opacity: 1;
 }
 
@@ -426,7 +429,7 @@ svg.logo__icon--github {
     justify-content: space-between;
     
     @media (max-width: 600px) {
-        [data-header-title] {
+        h1 {
             font-size: var(--size-3);
         }
 
@@ -465,7 +468,7 @@ svg.logo__icon--github {
 
 .note--add__new {
 
-    [data-note-add] {
+    button {
         width: 100%;
         padding: var(--space-100);
         color: var(--tx-color-1);
@@ -519,23 +522,6 @@ svg.logo__icon--github {
         }
     }
 
-    [data-note-delete] {
-        width: 0px;
-        overflow: hidden;
-        white-space: nowrap;
-        opacity: 0;
-
-        transition: var(--trans-1);
-        transition-property: opacity, width;
-    }
-
-    @media ( max-width: 900px ) {
-        [data-note-delete] {
-            width: 32px;
-            opacity: 1;
-        }
-    }
-
     &:hover {
         border-color: var(--accent-color);
         background-color: var(--secondary-color);
@@ -545,14 +531,6 @@ svg.logo__icon--github {
         outline: var(--solid-4) var(--bg-color-3);
     }
 }
-
-.note:hover [data-note-delete]{
-    width: 32px;
-    opacity: 1;
-}
-
-
-
 
 .empty--notes {
     position: absolute;    
@@ -586,7 +564,7 @@ svg.logo__icon--github {
     border-radius: var(--radius-4);
 
     position: absolute;
-    top: 50%;
+    top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 3;
