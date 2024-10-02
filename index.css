@@ -720,6 +720,12 @@ svg.logo__icon--github {
     }
 }
 
+.modal--btn__confirm, .modal--btn__cancel {
+    &:focus {
+        outline: var(--solid-4) var(--bg-color-3);
+    }
+}
+
 .modal--btn__confirm {
     background-color: var(--accent-color);
     color: var(--primary-color);
@@ -747,30 +753,43 @@ svg.logo__icon--github {
 
 /*———————— Responsive Web Design ————————*/
 
+
 @media (min-width: 900px) {
     body {
         padding-left: var(--sidebar-width);
     }
+}
+
+@media (max-width: 900px) {
     h1 {
         font-size: var(--size-8);
+    }
+    h2 {
+        font-size: var(--size-6);
     }
     h3 {
         font-size: var(--size-5);
     }
 }
 
-@media (min-width: 600px) {
+@media (max-width: 600px) {
     h1 {
         font-size: var(--size-7);
+    }
+    h2 {
+        font-size: var(--size-5);
     }
     h3 {
         font-size: var(--size-4);
     }
 }
 
-@media (min-width: 400px) {
+@media (max-width: 400px) {
     h1 {
         font-size: var(--size-6);
+    }
+    h2 {
+        font-size: var(--size-4);
     }
     h3 {
         font-size: var(--size-3);
