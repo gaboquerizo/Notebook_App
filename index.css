@@ -314,6 +314,10 @@ svg.logo__icon {
         outline: var(--solid-4) var(--bg-color-3);
     }
 
+    &:hover {
+        border-color: var(--accent-color);
+    }
+
     &.active {
         box-shadow: var(--shadow-low);
         background-color: var(--primary-color);
@@ -524,7 +528,6 @@ svg.logo__icon--github {
 
     &:hover {
         border-color: var(--accent-color);
-        background-color: var(--secondary-color);
     }
 
     &:active {
