@@ -24,9 +24,14 @@ const $INP_modalNotebookTitle = $('[data-modal-notebook] [data-notebook-title]')
 const $BTN_modalNotebookConfirm = $('[data-notebook-add-confirm]')
 const $BTN_editNotebookTitle = $('[data-notebook-edit]')
 
+
+const $BTN_NoteAdd = $('[data-note-add]')
+
 /**
  * Client ☼——————————————————————————————————————————————————————————————————————
  */
+
+DisableFeatures()
 
 const client = {
 
@@ -66,6 +71,8 @@ const NavItem = function (id, name) {
             </button>
         </nav>
     `;
+    
+    EnableFeatures()
 
     MenuItem.addEventListener('click', () => {
         ActiveMenuItem(MenuItem);
@@ -101,6 +108,16 @@ $headerTitle.addEventListener('keydown', (event) => {
         const updateNotebookData = db.update.notebook(id, name);
     }
 })
+
+function DisableFeatures () {
+    $BTN_editNotebookTitle.style.display = 'none';
+    $BTN_NoteAdd.style.display = 'none';
+}
+
+function EnableFeatures () {
+    $BTN_editNotebookTitle.style.display = 'flex';
+    $BTN_NoteAdd.style.display = 'flex';
+}
 
 /**
  * Utils ☼——————————————————————————————————————————————————————————————————————
