@@ -43,6 +43,14 @@ export const db = {
 
             return notebookData;
         }
+    },
+
+    get: {
+        notebook() {
+            readDB();
+
+            return notekeeperDB.notebooks;
+        }
     }
 
 };

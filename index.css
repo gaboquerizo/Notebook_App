@@ -332,7 +332,9 @@ svg.logo__icon {
     text-overflow: ellipsis;
 }
 
-.navbar__item--btn, .note__item--btn {
+.navbar__item--btn,
+.note__item--btn,
+.header__title--btn  {
     padding: 0;
     gap: var(--space-025);
     
@@ -354,7 +356,8 @@ svg.logo__icon {
 }
 
 .navbar__item:where(:hover) .navbar__item--btn,
-.note:where(:hover) .note__item--btn {
+.note:where(:hover) .note__item--btn,
+.main--header__title:where(:hover) .header__title--btn {
     width: 32px;
     opacity: 1;
 }
@@ -418,7 +421,7 @@ svg.logo__icon--github {
 /*———————— Main header ————————*/
 
 .main--header,
-.main--header__toggler,
+.main--header__title,
 .main--header__info {
     display: flex;
     align-items: center;
@@ -712,12 +715,8 @@ svg.logo__icon--github {
 }
 
 .modal--title {
-    font-size: var(--size-4);
+    font-size: var(--size-8);
     background-color: var(--secondary-color);
-
-    @media (max-width: 400px) {
-        font-size: 24px;
-    }
 }
 
 .modal--btn__confirm, .modal--btn__cancel {
@@ -770,6 +769,9 @@ svg.logo__icon--github {
     h3 {
         font-size: var(--size-5);
     }
+    .modal--title {
+        font-size: var(--size-7);
+    }
 }
 
 @media (max-width: 600px) {
@@ -782,6 +784,9 @@ svg.logo__icon--github {
     h3 {
         font-size: var(--size-4);
     }
+    .modal--title {
+        font-size: var(--size-6);
+    }
 }
 
 @media (max-width: 400px) {
@@ -793,5 +798,8 @@ svg.logo__icon--github {
     }
     h3 {
         font-size: var(--size-3);
+    }
+    .modal--title {
+        font-size: var(--size-5);
     }
 }
