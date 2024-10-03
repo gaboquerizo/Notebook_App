@@ -1,5 +1,8 @@
 'use strict';
 
+import { findNotebook } from "../index.js";
+
+
 const generateID = function () {
     return new Date().getTime().toString();
 }
@@ -50,6 +53,18 @@ export const db = {
             readDB();
 
             return notekeeperDB.notebooks;
+        }
+    },
+
+    update: {
+        notebook(notebookId, name) {
+            readDB()
+
+            const notebook = findNotebook(notekeeperDB, notebookId);
+            notebook.name = name;
+
+            writeDB()
+            return notebook;
         }
     }
 

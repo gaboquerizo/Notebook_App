@@ -431,13 +431,15 @@ svg.logo__icon--github {
 .main--header {
     justify-content: space-between;
 
-    @media (max-width: 900px) {
-        
+    h1 {
+        padding: var(--space-025);
+        &[contenteditable] {
+            background-color: var(--secondary-color);
+            border-radius: var(--radius-1);
+        }
     }
     
     @media (max-width: 600px) {
-        
-
         .current--data {
             display: none;
         }

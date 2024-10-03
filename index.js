@@ -6,22 +6,23 @@ import { db } from './app/db.js';
 const $ = element => document.querySelector(element)
 const $$ = elements => document.querySelectorAll(elements)
 
-const $sidebarMenu /*Barra Menu*/ = $('[data-sidebar]');
-const $BTN_sidebarToggler = $$('[data-sidebar-toggler]');
+const $sidebarMenu = $('[data-sidebar]')
+const $BTN_sidebarToggler = $$('[data-sidebar-toggler]')
 const $BTN_sidebarToggle = $('[data-sidebar] [data-sidebar-toggler]')
-const $sidebarMenuList /*Lista Menu*/ = $('[data-sidebar-navbar]');
-const $sidebarOverlay = $('[data-sidebar-overlay]');
-const $viewportOverlay = $('[data-main-overlay]');
-const $headerTitle = $('[data-header-title]');
-const $BTN_notebookAdd = $('[data-notebook-add]');
-const $modalContainer = $('[data-modal]');
-const $modalNotebookAdd = $('[data-modal-notebook]');
-const $BTN_modalNotebookCancel = $('[data-modal-notebook] [data-notebook-cancel]');
-const $BTN_modalNoteAdd = $('[data-note-add]');
-const $modalNoteAdd = $('[data-modal-note]');
-const $BTN_modalNoteCancel = $('[data-modal-note] [data-note-cancel]');
-const $INP_modalNotebookTitle = $('[data-modal-notebook] [data-notebook-title]');
+const $sidebarMenuList = $('[data-sidebar-navbar]')
+const $sidebarOverlay = $('[data-sidebar-overlay]')
+const $viewportOverlay = $('[data-main-overlay]')
+const $headerTitle = $('[data-header-title]')
+const $BTN_notebookAdd = $('[data-notebook-add]')
+const $modalContainer = $('[data-modal]')
+const $modalNotebookAdd = $('[data-modal-notebook]')
+const $BTN_modalNotebookCancel = $('[data-modal-notebook] [data-notebook-cancel]')
+const $BTN_modalNoteAdd = $('[data-note-add]')
+const $modalNoteAdd = $('[data-modal-note]')
+const $BTN_modalNoteCancel = $('[data-modal-note] [data-note-cancel]')
+const $INP_modalNotebookTitle = $('[data-modal-notebook] [data-notebook-title]')
 const $BTN_modalNotebookConfirm = $('[data-notebook-add-confirm]')
+const $BTN_editNotebookTitle = $('[data-notebook-edit]')
 
 /**
  * Client ☼——————————————————————————————————————————————————————————————————————
@@ -43,7 +44,7 @@ const client = {
 
                 if( index === 0) {
                     ActiveMenuItem($navItem);
-                    $headerTitle.textContent = notebookData.name;
+                    $headerTitle.textContent = notebookData.name
                 }
             })
         }
@@ -52,13 +53,11 @@ const client = {
 }
 
 const NavItem = function (id, name) {
-    const MenuItem = document.createElement('div');
+    const MenuItem = document.createElement('div')
     MenuItem.classList.add('navbar__item')
     MenuItem.setAttribute('data-item-notebook', id)
     MenuItem.innerHTML = /*HTML*/`
-        <h3 class="navbar__item--title" data-notebook-title>
-            ${name}
-        </h3>
+        <h3 class="navbar__item--title" data-notebook-title>${name}</h3>
         <nav class="navbar__item--btn">
             <button title="Eliminar" data-notebook-delete>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -68,11 +67,40 @@ const NavItem = function (id, name) {
         </nav>
     `;
 
-    // 💛 Agregar un evento ('click') para los Items del Sidebar + Cambia el titulo del Header + Renderizar las notas asociadas + Añadir la clase 'active' al item 
-    
+    MenuItem.addEventListener('click', () => {
+        ActiveMenuItem(MenuItem);
+        HideSidebar();
+        $headerTitle.textContent = MenuItem.textContent
+        $headerTitle.removeAttribute('contenteditable');
+    })
 
     return MenuItem;
 }
+
+$BTN_editNotebookTitle.addEventListener('click', () => {
+    $headerTitle.setAttribute('contenteditable', '');
+    $headerTitle.focus();
+})
+
+$headerTitle.addEventListener('keydown', (event) => {
+
+    if( event.key === 'Enter') {
+        $headerTitle.removeAttribute('contenteditable');
+        
+        let MenuItemTitle = $('.active[data-item-notebook] > [data-notebook-title]');
+        let MenuItemId = $('.active[data-item-notebook]');
+        
+        let name = $headerTitle.textContent.toString().trim();
+        let id = MenuItemId.getAttribute('data-item-notebook');
+        
+        MenuItemTitle.textContent = name;
+        
+        console.log('💚');
+        console.log(MenuItemTitle.textContent);
+
+        const updateNotebookData = db.update.notebook(id, name);
+    }
+})
 
 /**
  * Utils ☼——————————————————————————————————————————————————————————————————————
@@ -82,7 +110,7 @@ function addEventOnElements(elements, eventType, callback) {
     elements.forEach(element => element.addEventListener(eventType, callback));
 }
 
-addEventOnElements($BTN_sidebarToggler, 'click', ()=> {
+addEventOnElements($BTN_sidebarToggler, 'click', () => {
     $sidebarMenu.classList.toggle('active');
     $sidebarOverlay.classList.toggle('active');
 
@@ -91,13 +119,21 @@ addEventOnElements($BTN_sidebarToggler, 'click', ()=> {
     if(!classActive)
         $BTN_sidebarToggle.setAttribute('disabled', true);
     else if (classActive)
-        $BTN_sidebarToggle.removeAttribute('disabled')
+        $BTN_sidebarToggle.removeAttribute('disabled');
 
     $sidebarOverlay.addEventListener('click', () => {
-        $sidebarMenu.classList.remove('active');
-        $sidebarOverlay.classList.remove('active');
-    })
+        HideSidebar();
+    });
 });
+
+function HideSidebar () {
+    $sidebarMenu.classList.remove('active');
+    $sidebarOverlay.classList.remove('active');
+}
+
+export function findNotebook (db, notebookId) {
+    return db.notebooks.find(notebook => notebook.id === notebookId);
+}
 
 /**
  * Sidebar ☼——————————————————————————————————————————————————————————————————————
@@ -120,7 +156,7 @@ function ModalNotebookAddDeactivated () {
     $viewportOverlay.classList.remove('active');
     $modalContainer.classList.remove('open');
     $modalNotebookAdd.classList.remove('visible');
-};
+}
 
 function CreateNewNotebook (name) {
     if( name.length == 0 ){
@@ -138,7 +174,7 @@ function PushEscapeNotebook (event) {
 }
 
 function AssignTitle (name) {
-    $headerTitle.textContent = name;
+    $headerTitle.textContent = name
 }
 
 function ActiveMenuItem (MenuItem) {
@@ -151,12 +187,12 @@ function ActiveMenuItem (MenuItem) {
 
 function CancelNotebookModal () {
     ModalNotebookAddDeactivated();
-    $INP_modalNotebookTitle.value = '';
+    $INP_modalNotebookTitle.value = ''
 }
 
 $BTN_modalNotebookConfirm.addEventListener('click', () => {
 
-    const nameNewNotebook = $INP_modalNotebookTitle.value;
+    const nameNewNotebook = $INP_modalNotebookTitle.value
     CreateNewNotebook(nameNewNotebook);
 
     CancelNotebookModal();
@@ -165,7 +201,7 @@ $BTN_modalNotebookConfirm.addEventListener('click', () => {
 function PushEnterNotebook (event) {
     if (event.key === 'Enter') {
 
-        const nameNewNotebook = $INP_modalNotebookTitle.value;
+        const nameNewNotebook = $INP_modalNotebookTitle.value
         CreateNewNotebook(nameNewNotebook);
 
         CancelNotebookModal();
@@ -187,8 +223,6 @@ function RenderExistedNotebook () {
 
 RenderExistedNotebook();
 
-
-
 /**
  * Notes ☼——————————————————————————————————————————————————————————————————————
  */
@@ -197,13 +231,13 @@ function ModalNoteAddActivated () {
     $viewportOverlay.classList.add('active');
     $modalContainer.classList.add('open');
     $modalNoteAdd.classList.add('visible');
-};
+}
 
 function ModalNoteAddDeactivated () {
     $viewportOverlay.classList.remove('active');
     $modalContainer.classList.remove('open');
     $modalNoteAdd.classList.remove('visible');
-};
+}
 
 $BTN_modalNoteAdd.addEventListener('click', () => {
     ModalNoteAddActivated();
