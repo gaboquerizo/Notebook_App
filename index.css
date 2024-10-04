@@ -435,7 +435,7 @@ svg.logo__icon--github {
         padding: var(--space-025);
         &[contenteditable] {
             background-color: var(--secondary-color);
-            border-radius: var(--radius-1);
+            border-radius: var(--radius-2);
         }
     }
     
