@@ -60,9 +60,9 @@
     --radius-4: 1em;
     /*———————— Box Shadow ————————*/
     --sh-color: #0001;
-    --shadow-low:    0px 2px 4px 0px var(--sh-color), 0px 3px 6px 0px var(--sh-color);
-    --shadow-medium: 0px 20px 6px 10px var(--sh-color);
-    --shadow-high:   0px 0px 8px 0px var(--sh-color);
+    --shadow-low:    0px 2px 4px 0px var(--sh-color);
+    --shadow-medium: 0px 3px 6px 1px var(--sh-color);
+    --shadow-high:   0px 4px 8px 2px var(--sh-color);
     /*————————— Transitions —————————*/
     --trans-1: .2s ease;
     --trans-2: .4s ease;
@@ -243,7 +243,7 @@ button:has(svg) {
 
     background-color: var(--secondary-color);
     border-right: var(--solid-1) var(--bg-color-5);
-    box-shadow: var(--shadow-high);
+    box-shadow: inset var(--shadow-high);
 
     visibility: hidden;
     transition: var(--trans-2);
@@ -517,6 +517,7 @@ svg.logo__icon--github {
     display: flex;
     flex-direction: column;
     gap: var(--space-100);
+    box-shadow: var(--shadow-medium);
     cursor: pointer;
 
     p {
