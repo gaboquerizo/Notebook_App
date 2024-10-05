@@ -101,7 +101,7 @@ const client = {
         create(notebookData) {
             const $navItem = NavItem(notebookData.id, notebookData.name);
             $sidebarNavbar.appendChild($navItem);
-            // SidebarActiveElement($navItem);
+            SidebarActiveElement($navItem);
         },
 
         read(notebookList) {
@@ -110,7 +110,7 @@ const client = {
                 $sidebarNavbar.appendChild($navItem);
 
                 if( index === 0) {
-                    // SidebarActiveElement($navItem);
+                    SidebarActiveElement($navItem);
                     $headerTitle.textContent = notebookData.name
                 }
             })
@@ -140,32 +140,12 @@ const NavItem = function (id, name) {
     EnableFeatures()
 
     MenuItem.addEventListener('click', () => {
-        // SidebarActiveElement(MenuItem);
+        SidebarActiveElement(MenuItem);
         $headerTitle.textContent = MenuItem.textContent
         $headerTitle.removeAttribute('contenteditable');
         HideSidebar();
         EnableFeatures()
     });
-
-
-    // const $BTN_deleteNotebook = MenuItem.querySelector('[data-notebook-delete]')
-
-    // $BTN_deleteNotebook.addEventListener('click', () => {
-    //     modal.notebookDel.Activated()
-    //     $modalNotebook_Title.textContent = name;
-    // });
-
-    // const btn = $('[data-notebook-delete-confirm]');
-
-    // btn.addEventListener('click', () => {
-    //     console.log(id)
-    // });
-
-    // $BTN_modalNotebookDelete_Confirm.addEventListener('click', () => {
-    //     // db.delete.notebook(id);
-    //     modal.notebookDel.Deactivated()
-    // });
-
 
     const $BTN_deleteNotebook = MenuItem.querySelector('[data-notebook-delete]')
 
@@ -207,49 +187,6 @@ $headerTitle.addEventListener('keydown', (event) => {
         const updateNotebookData = db.update.notebook(id, name);
     }
 })
-
-function EliminarNotebook (id) {
-
-    const $sidebarItems = $$('[data-item-notebook]');
-    $sidebarItems.forEach((element) => {
-        let name = $('[data-notebook-title').value
-        
-        let btnDelete = $('[data-notebook-delete]');
-        
-        btnDelete.addEventListener('click', () => {
-            console.log(id)
-        });
-        
-    } );
-    
-
-}
-
-
-// function EliminarNotebook () {
-//     const $BTN_deleteNotebook = $sidebarNavbar.querySelectorAll('[data-notebook-delete]')
-
-//     $BTN_deleteNotebook.forEach((element) => {
-//         element.addEventListener('click', () => {
-//             ModalNotebookDeleteActivated();
-//             let Nombre = $modalNotebook_Delete.querySelector('[data-notebook-title]');
-//             let MenuItemTitle = $('[data-notebook-title]');
-//             Nombre.textContent = MenuItemTitle;
-//             let id = element.getAttribute('data-item-notebook')
-
-//             const $BTN_modalNotebookDeleteConfirm = $('[data-notebook-delete-confirm]')
-//             $BTN_modalNotebookDeleteConfirm.addEventListener('click', () => {
-//                 console.log(`Se acaba de eliminar  [${MenuItemTitle} , id:${id}] `);
-//                 ModalNotebookDeleteDeactivated();
-//                 db.delete.notebook(id);
-//                 element.remove();
-//             })
-//         })
-//     })
-// }
-
-
-
 
 /**
  * DB Utils ☼—————————————————————————————————————————————————————
