@@ -6,31 +6,92 @@ import { db } from './app/db.js';
 const $ = element => document.querySelector(element)
 const $$ = elements => document.querySelectorAll(elements)
 
-const $sidebarMenu = $('[data-sidebar]')
-const $BTN_sidebarToggler = $$('[data-sidebar-toggler]')
-const $BTN_sidebarToggle = $('[data-sidebar] [data-sidebar-toggler]')
-const $sidebarMenuList = $('[data-sidebar-navbar]')
-const $sidebarOverlay = $('[data-sidebar-overlay]')
-const $viewportOverlay = $('[data-main-overlay]')
-const $headerTitle = $('[data-header-title]')
-const $BTN_notebookAdd = $('[data-notebook-add]')
-const $modalContainer = $('[data-modal]')
-const $modalNotebookAdd = $('[data-modal-notebook]')
-const $modalNotebookDelete = $('[data-modal-notebook-delete]')
-const $BTN_modalNotebookCancel = $('[data-modal-notebook] [data-notebook-cancel]')
-const $BTN_modalNotebookDeleteCancel = $('[data-modal-notebook-delete] [data-notebook-cancel]')
-const $BTN_modalNoteAdd = $('[data-note-add]')
-const $modalNoteAdd = $('[data-modal-note]')
-const $BTN_modalNoteCancel = $('[data-modal-note] [data-note-cancel]')
-const $INP_modalNotebookTitle = $('[data-modal-notebook] [data-notebook-title]')
-const $BTN_modalNotebookConfirm = $('[data-notebook-add-confirm]')
-const $BTN_editNotebookTitle = $('[data-notebook-edit]')
+/*————— Sidebar Elements ————————————————————————————————————————*/
 
+const $sidebar = $('[data-sidebar]')
+const $sidebarNavbar = $('[data-sidebar-navbar]')
+const $sidebarOverlay = $('[data-sidebar-overlay]')
+const $mainOverlay = $('[data-main-overlay]')
+
+const $BTN_Notebook_Add = $('[data-notebook-add]')
 const $BTN_NoteAdd = $('[data-note-add]')
+/*————— Header Elements ————————————————————————————————————————*/
+
+const $headerTitle = $('[data-header-title]')
+
+/*————— Modal Elements ————————————————————————————————————————*/
+
+const $modal = $('[data-modal]')
+
+const $modalNotebook_Add = $('[data-modal-notebook]')
+const $INP_modalNotebook_Title = $('[data-modal-notebook] [data-notebook-title]')
+const $BTN_modalNotebook_Cancel = $('[data-modal-notebook] [data-notebook-cancel]')
+const $BTN_modalNotebook_Confirm = $('[data-modal-notebook] [data-notebook-add-confirm]')
+const $BTN_editNotebook_Title = $('[data-notebook-edit]')
+
+const $modalNotebook_Delete = $('[data-modal-notebook-delete]')
+const $modalNotebook_Title = $('[data-modal-notebook-delete] [data-notebook-title]')
+const $BTN_modalNotebookDelete_Cancel = $('[data-modal-notebook-delete] [data-notebook-cancel]')
+const $BTN_modalNotebookDelete_Confirm = $('[data-modal-notebook-delete] [data-notebook-delete-confirm]')
+
+const $modalNote_Add = $('[data-modal-note]')
+const $BTN_modalNoteCancel = $('[data-modal-note] [data-note-cancel]')
+
+/*————— Buttons Element ————————————————————————————————————————*/
+
+
+
 
 /**
- * Client ☼——————————————————————————————————————————————————————————————————————
+ * Utils ☼————————————————————————————————————————————————————————
  */
+
+const $BTN_sidebarToggler = $$('[data-sidebar-toggler]')
+const $BTN_sidebarToggle = $('[data-sidebar] [data-sidebar-toggler]')
+
+function addEventOnElements(elements, eventType, callback) {
+    elements.forEach(element => element.addEventListener(eventType, callback));
+}
+
+addEventOnElements($BTN_sidebarToggler, 'click', () => {
+    $sidebar.classList.toggle('active');
+    $sidebarOverlay.classList.toggle('active');
+
+    const isActive = $sidebar.classList.contains('active');
+    
+    if(!isActive)
+        $BTN_sidebarToggle.setAttribute('disabled', true);
+    else if (isActive)
+        $BTN_sidebarToggle.removeAttribute('disabled');
+
+    $sidebarOverlay.addEventListener('click', () => {
+        HideSidebar();
+    });
+});
+
+function HideSidebar () {
+    $sidebar.classList.remove('active');
+    $sidebarOverlay.classList.remove('active');
+}
+
+function TitleOfActiveElement (name) {
+    $headerTitle.textContent = name
+}
+
+function DisableFeatures () {
+    $BTN_editNotebook_Title.style.display = 'none';
+    $BTN_NoteAdd.style.display = 'none';
+}
+
+function EnableFeatures () {
+    $BTN_editNotebook_Title.style.display = 'flex';
+    $BTN_NoteAdd.style.display = 'flex';
+}
+
+/**
+ * Client ☼———————————————————————————————————————————————————————
+ */
+
 
 DisableFeatures()
 
@@ -39,23 +100,27 @@ const client = {
     notebook: {
         create(notebookData) {
             const $navItem = NavItem(notebookData.id, notebookData.name);
-            $sidebarMenuList.appendChild($navItem);
-            ActiveMenuItem($navItem);
+            $sidebarNavbar.appendChild($navItem);
+            // SidebarActiveElement($navItem);
         },
 
         read(notebookList) {
             notebookList.forEach((notebookData, index) => {
                 const $navItem = NavItem(notebookData.id, notebookData.name);
-                $sidebarMenuList.appendChild($navItem);
+                $sidebarNavbar.appendChild($navItem);
 
                 if( index === 0) {
-                    ActiveMenuItem($navItem);
+                    // SidebarActiveElement($navItem);
                     $headerTitle.textContent = notebookData.name
                 }
             })
         }
     }
 }
+
+/**
+ * NavItem ☼————————————————————————————————————————————————————————
+ */
 
 const NavItem = function (id, name) {
     const MenuItem = document.createElement('div')
@@ -75,42 +140,54 @@ const NavItem = function (id, name) {
     EnableFeatures()
 
     MenuItem.addEventListener('click', () => {
-        ActiveMenuItem(MenuItem);
-        HideSidebar();
+        // SidebarActiveElement(MenuItem);
         $headerTitle.textContent = MenuItem.textContent
         $headerTitle.removeAttribute('contenteditable');
-    })
-
-    const $BTN_deleteNotebook = MenuItem.querySelector('[data-notebook-delete]')
-
-    $BTN_deleteNotebook.addEventListener('click', () => {
-        db.delete.notebook(id);
-        MenuItem.remove();
+        HideSidebar();
+        EnableFeatures()
     });
+
 
     // const $BTN_deleteNotebook = MenuItem.querySelector('[data-notebook-delete]')
 
     // $BTN_deleteNotebook.addEventListener('click', () => {
+    //     modal.notebookDel.Activated()
+    //     $modalNotebook_Title.textContent = name;
+    // });
 
-    //     ModalNotebookDeleteActivated();
-    //     let Nombre = $modalNotebookDelete.querySelector('[data-notebook-title]');
-    //     Nombre.textContent = name
+    // const btn = $('[data-notebook-delete-confirm]');
 
-    //     const $BTN_modalNotebookDeleteConfirm = $('[data-notebook-delete-confirm]')
+    // btn.addEventListener('click', () => {
+    //     console.log(id)
+    // });
 
-    //     $BTN_modalNotebookDeleteConfirm.addEventListener('click', () => {
+    // $BTN_modalNotebookDelete_Confirm.addEventListener('click', () => {
+    //     // db.delete.notebook(id);
+    //     modal.notebookDel.Deactivated()
+    // });
 
-    //         console.log(`Se acaba de eliminar  [${name} , id:${id}] `);
-    //         CancelNotebookDeleteModal();
-    //         db.delete.notebook(id);
 
-    //     })
-    // })
+    const $BTN_deleteNotebook = MenuItem.querySelector('[data-notebook-delete]')
+
+    $BTN_deleteNotebook.addEventListener('click', () => {
+        // db.delete.notebook(id);
+        modal.notebookDel.Activated()
+        $modalNotebook_Title.textContent = name;
+        MenuItem.setAttribute('delete', '');
+    });
 
     return MenuItem;
 }
 
-$BTN_editNotebookTitle.addEventListener('click', () => {
+function SidebarActiveElement (item) {
+    const $sidebarItems = $$('[data-item-notebook]');
+    $sidebarItems.forEach((element) => {
+        element.classList.remove('active');
+    } );
+    item.classList.add('active');
+}
+
+$BTN_editNotebook_Title.addEventListener('click', () => {
     $headerTitle.setAttribute('contenteditable', '');
     $headerTitle.focus();
 })
@@ -131,13 +208,31 @@ $headerTitle.addEventListener('keydown', (event) => {
     }
 })
 
+function EliminarNotebook (id) {
+
+    const $sidebarItems = $$('[data-item-notebook]');
+    $sidebarItems.forEach((element) => {
+        let name = $('[data-notebook-title').value
+        
+        let btnDelete = $('[data-notebook-delete]');
+        
+        btnDelete.addEventListener('click', () => {
+            console.log(id)
+        });
+        
+    } );
+    
+
+}
+
+
 // function EliminarNotebook () {
-//     const $BTN_deleteNotebook = $sidebarMenuList.querySelectorAll('[data-notebook-delete]')
+//     const $BTN_deleteNotebook = $sidebarNavbar.querySelectorAll('[data-notebook-delete]')
 
 //     $BTN_deleteNotebook.forEach((element) => {
 //         element.addEventListener('click', () => {
 //             ModalNotebookDeleteActivated();
-//             let Nombre = $modalNotebookDelete.querySelector('[data-notebook-title]');
+//             let Nombre = $modalNotebook_Delete.querySelector('[data-notebook-title]');
 //             let MenuItemTitle = $('[data-notebook-title]');
 //             Nombre.textContent = MenuItemTitle;
 //             let id = element.getAttribute('data-item-notebook')
@@ -145,7 +240,7 @@ $headerTitle.addEventListener('keydown', (event) => {
 //             const $BTN_modalNotebookDeleteConfirm = $('[data-notebook-delete-confirm]')
 //             $BTN_modalNotebookDeleteConfirm.addEventListener('click', () => {
 //                 console.log(`Se acaba de eliminar  [${MenuItemTitle} , id:${id}] `);
-//                 CancelNotebookDeleteModal();
+//                 ModalNotebookDeleteDeactivated();
 //                 db.delete.notebook(id);
 //                 element.remove();
 //             })
@@ -153,54 +248,19 @@ $headerTitle.addEventListener('keydown', (event) => {
 //     })
 // }
 
-function DisableFeatures () {
-    $BTN_editNotebookTitle.style.display = 'none';
-    $BTN_NoteAdd.style.display = 'none';
-}
 
-function EnableFeatures () {
-    $BTN_editNotebookTitle.style.display = 'flex';
-    $BTN_NoteAdd.style.display = 'flex';
-}
+
 
 /**
- * Utils ☼——————————————————————————————————————————————————————————————————————
+ * DB Utils ☼—————————————————————————————————————————————————————
  */
 
-function addEventOnElements(elements, eventType, callback) {
-    elements.forEach(element => element.addEventListener(eventType, callback));
+RenderExistedNotebook();
+
+function RenderExistedNotebook () {
+    const/*:array*/ notebookList = db.get.notebook();
+    client.notebook.read(notebookList);
 }
-
-addEventOnElements($BTN_sidebarToggler, 'click', () => {
-    $sidebarMenu.classList.toggle('active');
-    $sidebarOverlay.classList.toggle('active');
-
-    const classActive = $sidebarMenu.classList.contains('active');
-    
-    if(!classActive)
-        $BTN_sidebarToggle.setAttribute('disabled', true);
-    else if (classActive)
-        $BTN_sidebarToggle.removeAttribute('disabled');
-
-    $sidebarOverlay.addEventListener('click', () => {
-        HideSidebar();
-    });
-});
-
-// const pantalla = window.screen.width;
-
-// if ( pantalla.matches > 900 ) {
-//     console.log('Pantalla mayor de 900px')
-// }
-
-function HideSidebar () {
-    $sidebarMenu.classList.remove('active');
-    $sidebarOverlay.classList.remove('active');
-}
-
-/**
- * DB Utils ☼———————————————————————————————————————————————————————————————————
- */
 
 export function findNotebook (db, notebookId) {
     return db.notebooks.find(notebook => notebook.id === notebookId);
@@ -211,141 +271,130 @@ export function findNotebookIndex(db, notebookId) {
 }
 
 /**
- * Sidebar ☼——————————————————————————————————————————————————————————————————————
+ * Modal ☼——————————————————————————————————————————————————————
  */
 
-$BTN_notebookAdd.addEventListener('click', () => {
-    ModalNotebookAddActivated();
-    $INP_modalNotebookTitle.focus();
-    $INP_modalNotebookTitle.addEventListener('keydown', PushEnterNotebook);
-    $INP_modalNotebookTitle.addEventListener('keydown', PushEscapeNotebook);
-});
+const modal = {
 
-function ModalNotebookAddActivated () {
-    $viewportOverlay.classList.add('active');
-    $modalContainer.classList.add('open');
-    $modalNotebookAdd.classList.add('visible');
-}
+    notebookAdd: {
+        Activated() {
+            $mainOverlay.classList.add('active');
+            $modal.classList.add('open');
+            $modalNotebook_Add.classList.add('visible');
+        },
+        Deactivated() {
+            $mainOverlay.classList.remove('active');
+            $modal.classList.remove('open');
+            $modalNotebook_Add.classList.remove('visible');
+           $INP_modalNotebook_Title.value = ''
+        }
+    },
 
-function ModalNotebookDeleteActivated () {
-    $viewportOverlay.classList.add('active');
-    $modalContainer.classList.add('open');
-    $modalNotebookDelete.classList.add('visible');
-}
+    notebookDel: {
+        Activated() {
+            $mainOverlay.classList.add('active');
+            $modal.classList.add('open');
+            $modalNotebook_Delete.classList.add('visible');
+        },
+        Deactivated() {
+            $mainOverlay.classList.remove('active');
+            $modal.classList.remove('open');
+            $modalNotebook_Delete.classList.remove('visible');
+        }
+    },
 
-function ModalNotebookAddDeactivated () {
-    $viewportOverlay.classList.remove('active');
-    $modalContainer.classList.remove('open');
-    $modalNotebookAdd.classList.remove('visible');
-}
+    noteAdd: {
+        Activated() {
+            $mainOverlay.classList.add('active');
+            $modal.classList.add('open');
+            $modalNote_Add.classList.add('visible');
+        },
+        Deactivated() {
+            $mainOverlay.classList.remove('active');
+            $modal.classList.remove('open');
+            $modalNote_Add.classList.remove('visible');
+        }
+    },
 
-function ModalNotebookDeleteDeactivated () {
-    $viewportOverlay.classList.remove('active');
-    $modalContainer.classList.remove('open');
-    $modalNotebookDelete.classList.remove('visible');
-}
+    noteDel: {
+
+    }
+};
+
+/**
+ * Modal > Create Notebook ☼——————————————————————————————————————————————————————
+ */
 
 function CreateNewNotebook (name) {
-    if( name.length == 0 ){
+    if( name.length === 0 ){
         name = 'Untitled'
     }
     const notebookData = db.post.notebook(name);
     client.notebook.create(notebookData);
-    AssignTitle(name);
+    TitleOfActiveElement(name);
+}
+
+function PushEnterNotebook (event) {
+    if (event.key === 'Enter') {
+        const NameNewNotebook = $INP_modalNotebook_Title.value
+        CreateNewNotebook(NameNewNotebook);
+        modal.notebookAdd.Deactivated();
+    }
 }
 
 function PushEscapeNotebook (event) {
     if (event.key === 'Escape') {
-        CancelNotebookModal();
+        modal.notebookAdd.Deactivated();
     }
 }
 
-function PushEscapeNotebookDelete (event) {
-    if (event.key === 'Escape') {
-        CancelNotebookDeleteModal();
-    }
-}
+$BTN_Notebook_Add.addEventListener('click', () => {
+    modal.notebookAdd.Activated();
+    $INP_modalNotebook_Title.focus();
+    $modalNotebook_Add.addEventListener('keydown', PushEnterNotebook);
+    $modalNotebook_Add.addEventListener('keydown', PushEscapeNotebook);
+});
 
-function AssignTitle (name) {
-    $headerTitle.textContent = name
-}
+$BTN_modalNotebook_Confirm.addEventListener('click', () => {
+    const NameNewNotebook = $INP_modalNotebook_Title.value
+    CreateNewNotebook(NameNewNotebook);
+    modal.notebookAdd.Deactivated();
+});
 
-function ActiveMenuItem (MenuItem) {
-    const $sidebarMenuItems = $$('[data-item-notebook]');
-    $sidebarMenuItems.forEach((element) => {
-        element.classList.remove('active');
-    } );
-    MenuItem.classList.add('active');
-}
+$BTN_modalNotebook_Cancel.addEventListener('click', () => {
+    modal.notebookAdd.Deactivated();
+});
 
-function CancelNotebookModal () {
-    ModalNotebookAddDeactivated();
-    $INP_modalNotebookTitle.value = ''
-}
+/**
+ * Modal > Drop Notebook ☼——————————————————————————————————————————————————————
+ */
 
-function CancelNotebookDeleteModal () {
-    ModalNotebookDeleteDeactivated();
-}
+$BTN_modalNotebookDelete_Cancel.addEventListener('click', () => {
+    const $sidebarNavbar_items = $$('[data-sidebar-navbar] [data-item-notebook]');
+    $sidebarNavbar_items.forEach((item)=> {
+        item.removeAttribute('delete');
+    })
+    modal.notebookDel.Deactivated();
+});
 
-$BTN_modalNotebookConfirm.addEventListener('click', () => {
-
-    const nameNewNotebook = $INP_modalNotebookTitle.value
-    CreateNewNotebook(nameNewNotebook);
-
-    CancelNotebookModal();
+$BTN_modalNotebookDelete_Confirm.addEventListener('click', () => {
+    const $itemToDelete = $('[data-sidebar-navbar] [delete]');
+    let id = $itemToDelete.getAttribute('data-item-notebook');
+    db.delete.notebook(id);
+    $itemToDelete.remove();
+    $headerTitle.textContent = "Notebook app"
+    modal.notebookDel.Deactivated();
+    DisableFeatures()
 })
 
-function PushEnterNotebook (event) {
-    if (event.key === 'Enter') {
-
-        const nameNewNotebook = $INP_modalNotebookTitle.value
-        CreateNewNotebook(nameNewNotebook);
-
-        CancelNotebookModal();
-    }
-}
-
-$BTN_modalNotebookCancel.addEventListener('click', () => {
-    CancelNotebookModal();
-});
-
-$BTN_modalNotebookCancel.addEventListener('keydown', PushEscapeNotebookDelete);
-
-$BTN_modalNotebookDeleteCancel.addEventListener('click', () => {
-    CancelNotebookDeleteModal();
-});
-
 /**
- * Load sidebar LocalStorage ☼——————————————————————————————————————————————————
+ * Modal > Create Notes ☼————————————————————————————————————————————————————————
  */
 
-function RenderExistedNotebook () {
-    const/*:array*/ notebookList = db.get.notebook();
-    client.notebook.read(notebookList);
-}
-
-RenderExistedNotebook();
-
-/**
- * Notes ☼——————————————————————————————————————————————————————————————————————
- */
-
-function ModalNoteAddActivated () {
-    $viewportOverlay.classList.add('active');
-    $modalContainer.classList.add('open');
-    $modalNoteAdd.classList.add('visible');
-}
-
-function ModalNoteAddDeactivated () {
-    $viewportOverlay.classList.remove('active');
-    $modalContainer.classList.remove('open');
-    $modalNoteAdd.classList.remove('visible');
-}
-
-$BTN_modalNoteAdd.addEventListener('click', () => {
-    ModalNoteAddActivated();
+$BTN_NoteAdd.addEventListener('click', () => {
+    modal.noteAdd.Activated()
 });
 
 $BTN_modalNoteCancel.addEventListener('click', () => {
-    ModalNoteAddDeactivated();
+    modal.noteAdd.Deactivated()
 });
