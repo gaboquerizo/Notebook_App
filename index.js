@@ -37,11 +37,6 @@ const $BTN_modalNotebookDelete_Confirm = $('[data-modal-notebook-delete] [data-n
 const $modalNote_Add = $('[data-modal-note]')
 const $BTN_modalNoteCancel = $('[data-modal-note] [data-note-cancel]')
 
-/*————— Buttons Element ————————————————————————————————————————*/
-
-
-
-
 /**
  * Utils ☼————————————————————————————————————————————————————————
  */
@@ -69,6 +64,14 @@ addEventOnElements($BTN_sidebarToggler, 'click', () => {
     });
 });
 
+function SidebarActiveElement (item) {
+    const $sidebarItems = $$('[data-item-notebook]');
+    $sidebarItems.forEach((element) => {
+        element.classList.remove('active');
+    } );
+    item.classList.add('active');
+}
+
 function HideSidebar () {
     $sidebar.classList.remove('active');
     $sidebarOverlay.classList.remove('active');
@@ -91,7 +94,6 @@ function EnableFeatures () {
 /**
  * Client ☼———————————————————————————————————————————————————————
  */
-
 
 DisableFeatures()
 
@@ -159,13 +161,9 @@ const NavItem = function (id, name) {
     return MenuItem;
 }
 
-function SidebarActiveElement (item) {
-    const $sidebarItems = $$('[data-item-notebook]');
-    $sidebarItems.forEach((element) => {
-        element.classList.remove('active');
-    } );
-    item.classList.add('active');
-}
+/**
+ * Header Title ☼————————————————————————————————————————————————————————
+ */
 
 $BTN_editNotebook_Title.addEventListener('click', () => {
     $headerTitle.setAttribute('contenteditable', '');
