@@ -1,6 +1,6 @@
 'use strict';
 
-import { findNotebook, findNotebookIndex } from "../index.js";
+import { findNotebook, findNotebookIndex, findNote } from "../index.js";
 
 
 const generateID = function () {
@@ -85,13 +85,24 @@ export const db = {
     update: {
         notebook(notebookId, name) {
             readDB()
-
+            
             const notebook = findNotebook(notekeeperDB, notebookId);
             notebook.name = name;
             
             writeDB()
             
             return notebook;
+        },
+        
+        note(noteId, newNoteObj) {
+            readDB()
+
+            const oldNote = findNote(notekeeperDB, noteId)
+            const newNote = Object.assign(oldNote, newNoteObj)
+
+            writeDB()
+
+            return newNote;
         }
     },
     

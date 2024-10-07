@@ -172,6 +172,13 @@ const client = {
                 $emptyNotes.classList.add('active');
             }
             // Aplicar un evento al btn de eliminar nota
+        },
+
+        update(noteId, noteData) {
+            const $oldCard = document.querySelector(`[data-item-note="${noteId}"]`);
+            const $newCard = CardItem (noteData);
+            
+            $notesPanel.replaceChild($newCard, $oldCard);
         }
     }
 }
@@ -181,10 +188,10 @@ const client = {
  */
 
 const NavItem = function (id, name) {
-    const MenuItem = document.createElement('div')
-    MenuItem.classList.add('navbar__item')
-    MenuItem.setAttribute('data-item-notebook', id)
-    MenuItem.innerHTML = /*HTML*/`
+    const NavItem = document.createElement('div')
+    NavItem.classList.add('navbar__item')
+    NavItem.setAttribute('data-item-notebook', id)
+    NavItem.innerHTML = /*HTML*/`
         <h3 class="navbar__item--title" data-notebook-title>${name}</h3>
         <nav class="navbar__item--btn">
             <button title="Eliminar" data-notebook-delete>
@@ -197,9 +204,9 @@ const NavItem = function (id, name) {
     
     EnableFeatures()
 
-    MenuItem.addEventListener('click', () => {
-        SidebarActiveElement(MenuItem);
-        $headerTitle.textContent = MenuItem.textContent
+    NavItem.addEventListener('click', () => {
+        SidebarActiveElement(NavItem);
+        $headerTitle.textContent = NavItem.textContent
         $headerTitle.removeAttribute('contenteditable');
         HideSidebar();
         EnableFeatures()
@@ -208,16 +215,16 @@ const NavItem = function (id, name) {
         client.note.read(noteList);
     });
 
-    const $BTN_deleteNotebook = MenuItem.querySelector('[data-notebook-delete]')
+    const $BTN_deleteNotebook = NavItem.querySelector('[data-notebook-delete]')
 
     $BTN_deleteNotebook.addEventListener('click', () => {
         // db.delete.notebook(id);
         modal.notebookDel.Activated()
         $modalNotebook_Title.textContent = name;
-        MenuItem.setAttribute('delete', '');
+        NavItem.setAttribute('delete', '');
     });
 
-    return MenuItem;
+    return NavItem;
 }
 
 /**
@@ -234,13 +241,13 @@ $headerTitle.addEventListener('keydown', (event) => {
     if( event.key === 'Enter') {
         $headerTitle.removeAttribute('contenteditable');
         
-        let MenuItemTitle = $('.active[data-item-notebook] > [data-notebook-title]');
-        let MenuItemId = $('.active[data-item-notebook]');
+        let NavItemTitle = $('.active[data-item-notebook] > [data-notebook-title]');
+        let NavItemId = $('.active[data-item-notebook]');
         
         let name = $headerTitle.textContent.toString().trim();
-        let id = MenuItemId.getAttribute('data-item-notebook');
+        let id = NavItemId.getAttribute('data-item-notebook');
         
-        MenuItemTitle.textContent = name
+        NavItemTitle.textContent = name
         const updateNotebookData = db.update.notebook(id, name);
     }
 })
@@ -273,6 +280,18 @@ const CardItem = function (noteData) {
         </footer>
     `;
 
+    CardItem.addEventListener('click', () => {
+        modal.noteAdd.Activated()
+        $INP_modalNote_Title.value = title
+        $INP_modalNote_Content.value = text
+
+        $BTN_modalNote_Confirm.addEventListener('click', (noteData) => {
+            const updatedData = db.update.note(id, noteData);
+            client.note.update(id, updatedData);
+            console.log(`${id} actualizado con éxito!`)
+        })
+    })
+
     return CardItem;
 }
 
@@ -289,11 +308,12 @@ RenderExistedNotebook();
 
 function RenderExistedNote () {
     const $ActiveElement = $('[data-item-notebook].active');
-    const id = $ActiveElement.getAttribute('data-item-notebook');
-
-    if (id) {
-        const noteList = db.get.note(id);
-        client.note.read(noteList);
+    if ($ActiveElement) {
+        const id = $ActiveElement.getAttribute('data-item-notebook');
+        if (id) {
+            const noteList = db.get.note(id);
+            client.note.read(noteList);
+        }
     }
 };
 
@@ -305,6 +325,15 @@ export function findNotebook (db, notebookId) {
 
 export function findNotebookIndex(db, notebookId) {
     return db.notebooks.findIndex(item => item.id === notebookId);
+}
+
+export function findNote(db, noteId) {
+    let note;
+    for (const notebook of db.notebooks) {
+        note = notebook.notes.find(note => note.id === noteId)
+        if (note) break;
+    }
+    return note;
 }
 
 /**
