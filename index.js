@@ -171,6 +171,7 @@ const client = {
                 $notesPanel.appendChild($addNewNote);
                 $emptyNotes.classList.add('active');
             }
+            // Aplicar un evento al btn de eliminar nota
         }
     }
 }
@@ -431,6 +432,9 @@ $BTN_modalNotebookDelete_Confirm.addEventListener('click', () => {
     $headerTitle.textContent = "Notebook app"
     modal.notebookDel.Deactivated();
     DisableFeatures()
+
+    $notesPanel.innerHTML = '';
+    $emptyNotes.classList.remove('active');
 })
 
 /**
@@ -442,16 +446,15 @@ $BTN_modalNotebookDelete_Confirm.addEventListener('click', () => {
      * 2. Crear métodos para activar y desactivar la modal [✔]
      * 3. El botón para agregar una nueva nota, con un click hace aparecer la modal [✔]
      * 4. El botón de Cancelar en la modal debe cerrar la modal y limpiar los inputs [✔]
-     * 6. Los inputs de la modal tendrán una opción de cerrar la modal en caso de que el usuario pulse 'Esc' []
-     * 7. Solo el input de Titulo escuchará la pulsación de Enter para guardar la nota
-     * 8. Los valores por defecto de los inputs son 'Untitle' para el título y ' ' para el texto interior
-     * 9. El boton de Guardar en la modal debe obtener el ID del elemento con la clase 'Active' y guardar los datos al espacio correspondiente []
+     * 6. Los inputs de la modal tendrán una opción de cerrar la modal en caso de que el usuario pulse 'Esc' [✔]
+     * 7. 🟡 Solo el input de Titulo escuchará la pulsación de Enter para guardar la nota []
+     * 8. Los valores por defecto de los inputs son 'Untitle' para el título y ' ' para el texto interior [✔]
+     * 9. El boton de Guardar en la modal debe obtener el ID del elemento con la clase 'Active' y guardar los datos al espacio correspondiente [✔]
      */
 
 $BTN_Note_Add.addEventListener('click', () => {
     modal.noteAdd.Activated()
-    
-    $modalNote_Add.addEventListener('keydown', PushEnterNote);
+    $INP_modalNote_Title.addEventListener('keydown', PushEnterNote);
     $modalNote_Add.addEventListener('keydown', PushEscapeNote);
 });
 
