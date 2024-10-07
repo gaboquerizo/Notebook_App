@@ -14,7 +14,7 @@ const $sidebarOverlay = $('[data-sidebar-overlay]')
 const $mainOverlay = $('[data-main-overlay]')
 
 const $BTN_Notebook_Add = $('[data-notebook-add]')
-const $BTN_NoteAdd = $('[data-note-add]')
+const $BTN_Note_Add = $('[data-note-add]')
 /*————— Header Elements ————————————————————————————————————————*/
 
 const $headerTitle = $('[data-header-title]')
@@ -35,7 +35,16 @@ const $BTN_modalNotebookDelete_Cancel = $('[data-modal-notebook-delete] [data-no
 const $BTN_modalNotebookDelete_Confirm = $('[data-modal-notebook-delete] [data-notebook-delete-confirm]')
 
 const $modalNote_Add = $('[data-modal-note]')
-const $BTN_modalNoteCancel = $('[data-modal-note] [data-note-cancel]')
+const $INP_modalNote_Title = $('[data-modal-note] [data-note-title]')
+const $INP_modalNote_Content = $('[data-modal-note] [data-note-content]')
+const $BTN_modalNote_Cancel = $('[data-modal-note] [data-note-cancel]')
+const $BTN_modalNote_Confirm = $('[data-modal-note] [data-note-add-confirm]')
+
+/*————— Main Elements ————————————————————————————————————————*/
+
+const $notesPanel = $('[data-notes-panel]')
+const $emptyNotes = $('[data-empty-notes]')
+const $addNewNote = $('.note--add__new')
 
 /**
  * Utils ☼————————————————————————————————————————————————————————
@@ -83,12 +92,28 @@ function TitleOfActiveElement (name) {
 
 function DisableFeatures () {
     $BTN_editNotebook_Title.style.display = 'none';
-    $BTN_NoteAdd.style.display = 'none';
+    $BTN_Note_Add.style.display = 'none';
 }
 
 function EnableFeatures () {
     $BTN_editNotebook_Title.style.display = 'flex';
-    $BTN_NoteAdd.style.display = 'flex';
+    $BTN_Note_Add.style.display = 'flex';
+}
+
+function getRelativeTime(ms) {
+
+    const currentTime = new Date().getTime();
+
+    const minute = Math.floor((currentTime - ms) / 1000 / 60)
+    const hour = Math.floor(minute / 60);
+    const day = Math.floor(hour / 24);
+
+    return minute < 1 ? 'Ahora' : minute === 1 
+        ? `Hace un minuto` : minute < 60 
+        ? `Hace ${minute} minutos` : hour === 1 
+        ? `Hace una hora` : hour < 24 
+        ? `Hace ${hour} horas` : day === 1 
+        ? `Ayer` : `Hace ${day} días`;
 }
 
 /**
@@ -116,6 +141,36 @@ const client = {
                     $headerTitle.textContent = notebookData.name
                 }
             })
+        },
+
+        delete(notebookId) {
+            notebookId.remove();
+        }
+    },
+    note: {
+        create(noteData) {
+            const $cardItem = CardItem(noteData)
+            const $BTN_addNewNote = $('.note--add__new');
+
+            $notesPanel.insertBefore($cardItem, $BTN_addNewNote)
+        },
+
+        read(noteList) {
+            if( noteList.length > 0 ){
+                $notesPanel.innerHTML = '';
+                $notesPanel.appendChild($addNewNote);
+                $emptyNotes.classList.remove('active');
+                
+                noteList.forEach((note) => {
+                    const $cardItem = CardItem(note);
+                    const $BTN_addNewNote = $('.note--add__new');
+                    $notesPanel.insertBefore($cardItem, $BTN_addNewNote)
+                });
+            } else {
+                $notesPanel.innerHTML = '';
+                $notesPanel.appendChild($addNewNote);
+                $emptyNotes.classList.add('active');
+            }
         }
     }
 }
@@ -147,6 +202,9 @@ const NavItem = function (id, name) {
         $headerTitle.removeAttribute('contenteditable');
         HideSidebar();
         EnableFeatures()
+
+        const noteList = db.get.note(id);
+        client.note.read(noteList);
     });
 
     const $BTN_deleteNotebook = MenuItem.querySelector('[data-notebook-delete]')
@@ -187,15 +245,58 @@ $headerTitle.addEventListener('keydown', (event) => {
 })
 
 /**
- * DB Utils ☼—————————————————————————————————————————————————————
+ * CardItem ☼————————————————————————————————————————————————————————
  */
 
-RenderExistedNotebook();
+const CardItem = function (noteData) {
+
+    const { id, title, text, postedOn, notebookId } = noteData;
+
+    const CardItem = document.createElement('div')
+    CardItem.classList.add('note');
+    CardItem.setAttribute('data-item-note', id)
+    CardItem.innerHTML = /*HTML*/`
+        <header>
+            <h3 data-note-title>${title}</h3>
+        </header>
+        <p>${text}</p>
+        <footer>
+            <span class="date">${getRelativeTime(postedOn)}</span>
+            <nav class="note__item--btn">
+                <button title="Eliminar" data-note-delete >
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m19.5 5.5l-.62 10.025c-.158 2.561-.237 3.842-.88 4.763a4 4 0 0 1-1.2 1.128c-.957.584-2.24.584-4.806.584c-2.57 0-3.855 0-4.814-.585a4 4 0 0 1-1.2-1.13c-.642-.922-.72-2.205-.874-4.77L4.5 5.5M3 5.5h18m-4.944 0l-.683-1.408c-.453-.936-.68-1.403-1.071-1.695a2 2 0 0 0-.275-.172C13.594 2 13.074 2 12.035 2c-1.066 0-1.599 0-2.04.234a2 2 0 0 0-.278.18c-.395.303-.616.788-1.058 1.757L8.053 5.5m1.447 11v-6m5 6v-6" color="currentColor" />
+                    </svg>
+                </button>
+            </nav>
+        </footer>
+    `;
+
+    return CardItem;
+}
+
+/**
+ * DB Utils ☼—————————————————————————————————————————————————————
+ */
 
 function RenderExistedNotebook () {
     const/*:array*/ notebookList = db.get.notebook();
     client.notebook.read(notebookList);
 }
+
+RenderExistedNotebook();
+
+function RenderExistedNote () {
+    const $ActiveElement = $('[data-item-notebook].active');
+    const id = $ActiveElement.getAttribute('data-item-notebook');
+
+    if (id) {
+        const noteList = db.get.note(id);
+        client.note.read(noteList);
+    }
+};
+
+RenderExistedNote ()
 
 export function findNotebook (db, notebookId) {
     return db.notebooks.find(notebook => notebook.id === notebookId);
@@ -221,7 +322,7 @@ const modal = {
             $mainOverlay.classList.remove('active');
             $modal.classList.remove('open');
             $modalNotebook_Add.classList.remove('visible');
-           $INP_modalNotebook_Title.value = ''
+            $INP_modalNotebook_Title.value = ''
         }
     },
 
@@ -248,6 +349,8 @@ const modal = {
             $mainOverlay.classList.remove('active');
             $modal.classList.remove('open');
             $modalNote_Add.classList.remove('visible');
+            $INP_modalNote_Title.value = ''
+            $INP_modalNote_Content.value = ''
         }
     },
 
@@ -259,6 +362,27 @@ const modal = {
 /**
  * Modal > Create Notebook ☼——————————————————————————————————————————————————————
  */
+
+$BTN_Notebook_Add.addEventListener('click', () => {
+    modal.notebookAdd.Activated();
+    $INP_modalNotebook_Title.focus();
+    $modalNotebook_Add.addEventListener('keydown', PushEnterNotebook);
+    $modalNotebook_Add.addEventListener('keydown', PushEscapeNotebook);
+});
+
+$BTN_modalNotebook_Confirm.addEventListener('click', () => {
+    const NameNewNotebook = $INP_modalNotebook_Title.value
+    CreateNewNotebook(NameNewNotebook);
+    modal.notebookAdd.Deactivated();
+    
+    $notesPanel.innerHTML = '';
+    $notesPanel.appendChild($addNewNote);
+    $emptyNotes.classList.add('active');
+});
+
+$BTN_modalNotebook_Cancel.addEventListener('click', () => {
+    modal.notebookAdd.Deactivated();
+});
 
 function CreateNewNotebook (name) {
     if( name.length === 0 ){
@@ -274,6 +398,10 @@ function PushEnterNotebook (event) {
         const NameNewNotebook = $INP_modalNotebook_Title.value
         CreateNewNotebook(NameNewNotebook);
         modal.notebookAdd.Deactivated();
+        
+        $notesPanel.innerHTML = '';
+        $notesPanel.appendChild($addNewNote);
+        $emptyNotes.classList.add('active');
     }
 }
 
@@ -282,23 +410,6 @@ function PushEscapeNotebook (event) {
         modal.notebookAdd.Deactivated();
     }
 }
-
-$BTN_Notebook_Add.addEventListener('click', () => {
-    modal.notebookAdd.Activated();
-    $INP_modalNotebook_Title.focus();
-    $modalNotebook_Add.addEventListener('keydown', PushEnterNotebook);
-    $modalNotebook_Add.addEventListener('keydown', PushEscapeNotebook);
-});
-
-$BTN_modalNotebook_Confirm.addEventListener('click', () => {
-    const NameNewNotebook = $INP_modalNotebook_Title.value
-    CreateNewNotebook(NameNewNotebook);
-    modal.notebookAdd.Deactivated();
-});
-
-$BTN_modalNotebook_Cancel.addEventListener('click', () => {
-    modal.notebookAdd.Deactivated();
-});
 
 /**
  * Modal > Drop Notebook ☼——————————————————————————————————————————————————————
@@ -313,10 +424,10 @@ $BTN_modalNotebookDelete_Cancel.addEventListener('click', () => {
 });
 
 $BTN_modalNotebookDelete_Confirm.addEventListener('click', () => {
-    const $itemToDelete = $('[data-sidebar-navbar] [delete]');
-    let id = $itemToDelete.getAttribute('data-item-notebook');
+    const $itemToDelete = $('[data-sidebar-navbar] [data-item-notebook][delete]');
+    const id = $itemToDelete.getAttribute('data-item-notebook');
     db.delete.notebook(id);
-    $itemToDelete.remove();
+    client.notebook.delete($itemToDelete)
     $headerTitle.textContent = "Notebook app"
     modal.notebookDel.Deactivated();
     DisableFeatures()
@@ -326,10 +437,67 @@ $BTN_modalNotebookDelete_Confirm.addEventListener('click', () => {
  * Modal > Create Notes ☼————————————————————————————————————————————————————————
  */
 
-$BTN_NoteAdd.addEventListener('click', () => {
+    /**
+     * 1. Obtener la referencia de los elementos asignado a las variables [✔]
+     * 2. Crear métodos para activar y desactivar la modal [✔]
+     * 3. El botón para agregar una nueva nota, con un click hace aparecer la modal [✔]
+     * 4. El botón de Cancelar en la modal debe cerrar la modal y limpiar los inputs [✔]
+     * 6. Los inputs de la modal tendrán una opción de cerrar la modal en caso de que el usuario pulse 'Esc' []
+     * 7. Solo el input de Titulo escuchará la pulsación de Enter para guardar la nota
+     * 8. Los valores por defecto de los inputs son 'Untitle' para el título y ' ' para el texto interior
+     * 9. El boton de Guardar en la modal debe obtener el ID del elemento con la clase 'Active' y guardar los datos al espacio correspondiente []
+     */
+
+$BTN_Note_Add.addEventListener('click', () => {
     modal.noteAdd.Activated()
+    
+    $modalNote_Add.addEventListener('keydown', PushEnterNote);
+    $modalNote_Add.addEventListener('keydown', PushEscapeNote);
 });
 
-$BTN_modalNoteCancel.addEventListener('click', () => {
+$BTN_modalNote_Cancel.addEventListener('click', () => {
     modal.noteAdd.Deactivated()
 });
+
+$BTN_modalNote_Confirm.addEventListener('click', () => {
+    CreateNewNote ()
+    modal.noteAdd.Deactivated()
+})
+
+function CreateNewNote () {
+    
+    const $ActiveElement = $('[data-item-notebook].active');
+    const id = $ActiveElement.getAttribute('data-item-notebook');
+    
+    let NoteTitle = $INP_modalNote_Title.value;
+    let NoteContent = $INP_modalNote_Content.value;
+    
+    if( NoteTitle.length === 0 ){
+        NoteTitle = 'Untitled'
+    }
+
+    if( NoteContent.length === 0 ){
+        NoteContent = ''
+    }
+
+    const noteObj = {
+        title: NoteTitle,
+        text: NoteContent
+    }
+
+    const noteData = db.post.note(id, noteObj);
+    client.note.create(noteData);
+}
+
+function PushEnterNote (event) {
+    if (event.key === 'Enter') {
+        CreateNewNote();
+        modal.noteAdd.Deactivated()
+    }
+}
+
+function PushEscapeNote (event) {
+    if (event.key === 'Escape') {
+        modal.noteAdd.Deactivated()
+    }
+}

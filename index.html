@@ -8,7 +8,7 @@
     <meta name="title" content="Mango App - Aplicación para escribir notas">
     <meta name="description" content="Escribe y crea notas de forma rápida y cómoda.">
 
-    <link rel="favicon icon" href="https://cdn-icons-png.flaticon.com/512/12292/12292533.png">
+    <!-- <link rel="favicon icon" href="https://cdn-icons-png.flaticon.com/512/12292/12292533.png"> -->
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="assets/reset/normalize.css">
 
@@ -118,7 +118,7 @@
 
         <section class="notes--panel" data-notes-panel>
 
-            <div class="note" data-note-item>
+            <div class="note" data-item-note>
                 <header>
                     <h3 data-note-title>Hola mundo</h3>
                 </header>
@@ -215,7 +215,7 @@
                     </svg>
                 </header>
                 <input class="modal--title" data-note-title type="text" placeholder="Untitled" value="">
-                <textarea placeholder="Escribe aquí..." class="modal-text"></textarea>
+                <textarea class="modal--text" data-note-content placeholder="Escribe aquí..." ></textarea>
                 <nav>
                     <button class="modal--btn__cancel" title="Cancelar" data-note-cancel >
                         Cancelar
