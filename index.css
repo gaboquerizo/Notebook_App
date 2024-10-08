@@ -90,7 +90,7 @@
 :root[data-theme="dark"] {
     /*60%*/ --primary-color: #171c20;
     /*30%*/ --secondary-color: #12171a;
-    /*10%*/ --accent-color: #ddd3ff;
+    /*10%*/ --accent-color: #def;
 
     --tx-color-1: #def;
     --tx-color-2: #abc;
