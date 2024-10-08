@@ -601,7 +601,7 @@ svg.logo__icon--github {
     padding: var(--space-150);
     border-radius: var(--radius-4);
 
-    position: absolute;
+    position: fixed;
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -623,7 +623,7 @@ svg.logo__icon--github {
     }
 
     @media (max-width: 400px) {
-        top: 30%;
+        top: 40%;
         padding-inline: var(--space-100);
     }
 }

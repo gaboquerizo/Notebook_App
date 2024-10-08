@@ -23,6 +23,7 @@ const $headerTitle = $('[data-header-title]')
 
 const $modal = $('[data-modal]')
 
+// Notebook
 const $modalNotebook_Add = $('[data-modal-notebook]')
 const $INP_modalNotebook_Title = $('[data-modal-notebook] [data-notebook-title]')
 const $BTN_modalNotebook_Cancel = $('[data-modal-notebook] [data-notebook-cancel]')
@@ -34,11 +35,18 @@ const $modalNotebook_Title = $('[data-modal-notebook-delete] [data-notebook-titl
 const $BTN_modalNotebookDelete_Cancel = $('[data-modal-notebook-delete] [data-notebook-cancel]')
 const $BTN_modalNotebookDelete_Confirm = $('[data-modal-notebook-delete] [data-notebook-delete-confirm]')
 
+// Note
 const $modalNote_Add = $('[data-modal-note]')
 const $INP_modalNote_Title = $('[data-modal-note] [data-note-title]')
 const $INP_modalNote_Content = $('[data-modal-note] [data-note-content]')
 const $BTN_modalNote_Cancel = $('[data-modal-note] [data-note-cancel]')
 const $BTN_modalNote_Confirm = $('[data-modal-note] [data-note-add-confirm]')
+
+const $modalNote_Delete = $('[data-modal-note-delete]')
+const $modalNote_Title = $('[data-modal-note-delete] [data-note-title]')
+const $BTN_modalNoteDelete_Cancel = $('[data-modal-note-delete] [data-note-cancel]')
+const $BTN_modalNoteDelete_Confirm = $('[data-modal-note-delete] [data-note-delete-confirm]')
+
 
 /*————— Main Elements ————————————————————————————————————————*/
 
@@ -114,6 +122,7 @@ function getRelativeTime(ms) {
         ? `Hace una hora` : hour < 24 
         ? `Hace ${hour} horas` : day === 1 
         ? `Ayer` : `Hace ${day} días`;
+        // Donde dice "Hace ${day} días" Agregar la fecha completa 
 }
 
 /**
@@ -289,6 +298,15 @@ const CardItem = function (noteData) {
         variableExterna = noteData
     })
 
+    CardItem.querySelector('[data-note-delete]').addEventListener('click', (event) => {
+        event.stopImmediatePropagation()
+
+        modal.noteDel.Activated()
+        $modalNote_Title.textContent = title
+        CardItem.setAttribute('delete', '')
+        variableExterna = noteData
+    })
+
     return CardItem;
 }
 
@@ -301,6 +319,7 @@ let variableExterna = {};
 function RenderExistedNotebook () {
     const/*:array*/ notebookList = db.get.notebook();
     client.notebook.read(notebookList);
+    
 }
 
 RenderExistedNotebook();
@@ -329,10 +348,14 @@ export function findNotebookIndex(db, notebookId) {
 export function findNote(db, noteId) {
     let note;
     for (const notebook of db.notebooks) {
-        note = notebook.notes.find(note => note.id === noteId)
+        note = notebook.notes.find(note => note.id === noteId);
         if (note) break;
     }
     return note;
+}
+
+export function findNoteIndex(notebook, noteId) {
+    return notebook.notes.findIndex(note => note.id === noteId);
 }
 
 /**
@@ -384,7 +407,16 @@ const modal = {
     },
 
     noteDel: {
-
+        Activated() {
+            $mainOverlay.classList.add('active');
+            $modal.classList.add('open');
+            $modalNote_Delete.classList.add('visible');
+        },
+        Deactivated() {
+            $mainOverlay.classList.remove('active');
+            $modal.classList.remove('open');
+            $modalNote_Delete.classList.remove('visible');
+        }
     }
 };
 
@@ -395,8 +427,8 @@ const modal = {
 $BTN_Notebook_Add.addEventListener('click', () => {
     modal.notebookAdd.Activated();
     $INP_modalNotebook_Title.focus();
-    $modalNotebook_Add.addEventListener('keydown', PushEnterNotebook);
-    $modalNotebook_Add.addEventListener('keydown', PushEscapeNotebook);
+    $INP_modalNotebook_Title.addEventListener('keydown', PushEnterNotebook);
+    $INP_modalNotebook_Title.addEventListener('keydown', PushEscapeNotebook);
 });
 
 $BTN_modalNotebook_Confirm.addEventListener('click', () => {
@@ -415,7 +447,7 @@ $BTN_modalNotebook_Cancel.addEventListener('click', () => {
 
 function CreateNewNotebook (name) {
     if( name.length === 0 ){
-        name = 'Untitled'
+        name = 'Sin título'
     }
     const notebookData = db.post.notebook(name);
     client.notebook.create(notebookData);
@@ -455,12 +487,13 @@ $BTN_modalNotebookDelete_Cancel.addEventListener('click', () => {
 $BTN_modalNotebookDelete_Confirm.addEventListener('click', () => {
     const $itemToDelete = $('[data-sidebar-navbar] [data-item-notebook][delete]');
     const id = $itemToDelete.getAttribute('data-item-notebook');
+    
     db.delete.notebook(id);
     client.notebook.delete($itemToDelete)
+    
     $headerTitle.textContent = "Notebook app"
     modal.notebookDel.Deactivated();
     DisableFeatures()
-
     $notesPanel.innerHTML = '';
     $emptyNotes.classList.remove('active');
 })
@@ -487,6 +520,7 @@ $BTN_modalNote_Cancel.addEventListener('click', () => {
 $BTN_modalNote_Confirm.addEventListener('click', () => {
 
     const $itemToEdit = $('[data-item-note][edit]');
+    $emptyNotes.classList.remove('active');
 
     if($itemToEdit) {
 
@@ -495,6 +529,10 @@ $BTN_modalNote_Confirm.addEventListener('click', () => {
         variableExterna.title = $INP_modalNote_Title.value
         variableExterna.text = $INP_modalNote_Content.value
         variableExterna.postedOn = new Date().getTime();
+
+        if(variableExterna.title === 'Sin título' || variableExterna.title.length === 0) {
+            variableExterna.title = 'Sin título'
+        }
 
         const updatedData = db.update.note(id, variableExterna);
         client.note.update(id, updatedData);
@@ -508,7 +546,6 @@ $BTN_modalNote_Confirm.addEventListener('click', () => {
     
     CreateNewNote()
     modal.noteAdd.Deactivated()
-    console.log('Se creó una nueva carta')
 })
 
 function CreateNewNote () {
@@ -520,7 +557,7 @@ function CreateNewNote () {
     let NoteContent = $INP_modalNote_Content.value;
     
     if( NoteTitle.length === 0 ){
-        NoteTitle = 'Untitled'
+        NoteTitle = 'Sin título'
     }
 
     if( NoteContent.length === 0 ){
@@ -550,6 +587,26 @@ function PushEscapeNote (event) {
 }
 
 /**
- * Modal > Drop Notes ☼————————————————————————————————————————————————————————
+ * Modal > Drop Note
  */
 
+$BTN_modalNoteDelete_Cancel.addEventListener('click', () => {
+    const $itemToDelete = $('[data-notes-panel] [data-item-note][delete]');
+    $itemToDelete.removeAttribute('delete')
+
+    modal.noteDel.Deactivated();
+});
+
+$BTN_modalNoteDelete_Confirm.addEventListener('click', () => {
+    let { id, title, text, postedOn, notebookId } = variableExterna;
+    const $itemToDelete = $('[data-notes-panel] [data-item-note][delete]');
+    
+    db.delete.note(notebookId, id);
+    $itemToDelete.remove();
+    
+    modal.noteDel.Deactivated();
+    const $Notes_items = $$('[data-notes-panel] [data-item-note]');
+    if($Notes_items.length === 1) {
+        $emptyNotes.classList.add('active');
+    }
+})

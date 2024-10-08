@@ -1,6 +1,6 @@
 'use strict';
 
-import { findNotebook, findNotebookIndex, findNote } from "../index.js";
+import { findNotebook, findNotebookIndex, findNote, findNoteIndex } from "../index.js";
 
 
 const generateID = function () {
@@ -109,11 +109,23 @@ export const db = {
     delete: {
         notebook(notebookId) {
             readDB()
-
+            
             const notebookIndex = findNotebookIndex(notekeeperDB, notebookId);
             notekeeperDB.notebooks.splice(notebookIndex, 1);
+            
+            writeDB()
+        },
+        note(notebookId, noteId) {
+            readDB()
+            
+            const notebook = findNotebook(notekeeperDB, notebookId);
+            const noteIndex = findNoteIndex(notebook, noteId);
+
+            notebook.notes.splice(noteIndex, 1)
 
             writeDB()
+
+            return notebook.notes;
         }
     }
 
