@@ -74,7 +74,7 @@
 :root[data-theme="light"] {
     /*60%*/ --primary-color: #FFF;
     /*30%*/ --secondary-color: #F3F6Fa;
-    /*10%*/ --accent-color: #110E1E;
+    /*10%*/ --accent-color: #1d083c;
 
     --tx-color-1: #123;
     --tx-color-2: #456;
@@ -758,7 +758,6 @@ svg.logo__icon--github {
 }
 
 /*———————— Responsive Web Design ————————*/
-
 
 @media (min-width: 900px) {
     body {
