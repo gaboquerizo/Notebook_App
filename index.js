@@ -164,7 +164,7 @@ const client = {
                 noteList.forEach((note) => {
                     const $cardItem = CardItem(note);
                     const $BTN_addNewNote = $('.note--add__new');
-                    $notesPanel.insertBefore($cardItem, $BTN_addNewNote)
+                    $notesPanel.prepend($cardItem)    // insertBefore($cardItem, $BTN_addNewNote)
                 });
             } else {
                 $notesPanel.innerHTML = '';
@@ -176,8 +176,7 @@ const client = {
 
         update(noteId, noteData) {
             const $oldCard = document.querySelector(`[data-item-note="${noteId}"]`);
-            const $newCard = CardItem (noteData);
-            
+            const $newCard = CardItem(noteData);            
             $notesPanel.replaceChild($newCard, $oldCard);
         }
     }
@@ -258,7 +257,7 @@ $headerTitle.addEventListener('keydown', (event) => {
 
 const CardItem = function (noteData) {
 
-    const { id, title, text, postedOn, notebookId } = noteData;
+    let { id, title, text, postedOn, notebookId } = noteData;
 
     const CardItem = document.createElement('div')
     CardItem.classList.add('note');
@@ -285,15 +284,15 @@ const CardItem = function (noteData) {
         $INP_modalNote_Title.value = title
         $INP_modalNote_Content.value = text
 
-        $BTN_modalNote_Confirm.addEventListener('click', (noteData) => {
-            const updatedData = db.update.note(id, noteData);
-            client.note.update(id, updatedData);
-            console.log(`${id} actualizado con éxito!`)
-        })
+        CardItem.setAttribute('edit', '')
+        $BTN_modalNote_Confirm.textContent = 'Editar'
+        variableExterna = noteData
     })
 
     return CardItem;
 }
+
+let variableExterna = {};
 
 /**
  * DB Utils ☼—————————————————————————————————————————————————————
@@ -470,17 +469,6 @@ $BTN_modalNotebookDelete_Confirm.addEventListener('click', () => {
  * Modal > Create Notes ☼————————————————————————————————————————————————————————
  */
 
-    /**
-     * 1. Obtener la referencia de los elementos asignado a las variables [✔]
-     * 2. Crear métodos para activar y desactivar la modal [✔]
-     * 3. El botón para agregar una nueva nota, con un click hace aparecer la modal [✔]
-     * 4. El botón de Cancelar en la modal debe cerrar la modal y limpiar los inputs [✔]
-     * 6. Los inputs de la modal tendrán una opción de cerrar la modal en caso de que el usuario pulse 'Esc' [✔]
-     * 7. 🟡 Solo el input de Titulo escuchará la pulsación de Enter para guardar la nota []
-     * 8. Los valores por defecto de los inputs son 'Untitle' para el título y ' ' para el texto interior [✔]
-     * 9. El boton de Guardar en la modal debe obtener el ID del elemento con la clase 'Active' y guardar los datos al espacio correspondiente [✔]
-     */
-
 $BTN_Note_Add.addEventListener('click', () => {
     modal.noteAdd.Activated()
     $INP_modalNote_Title.addEventListener('keydown', PushEnterNote);
@@ -489,11 +477,38 @@ $BTN_Note_Add.addEventListener('click', () => {
 
 $BTN_modalNote_Cancel.addEventListener('click', () => {
     modal.noteAdd.Deactivated()
+    $BTN_modalNote_Confirm.textContent = 'Guardar'
+    const $Notes_items = $$('[data-item-note][edit]');
+    $Notes_items.forEach((item) => {
+        item.removeAttribute('edit');
+    })
 });
 
 $BTN_modalNote_Confirm.addEventListener('click', () => {
-    CreateNewNote ()
+
+    const $itemToEdit = $('[data-item-note][edit]');
+
+    if($itemToEdit) {
+
+        let { id, title, text, postedOn, notebookId } = variableExterna;
+
+        variableExterna.title = $INP_modalNote_Title.value
+        variableExterna.text = $INP_modalNote_Content.value
+        variableExterna.postedOn = new Date().getTime();
+
+        const updatedData = db.update.note(id, variableExterna);
+        client.note.update(id, updatedData);
+        
+        modal.noteAdd.Deactivated()
+        $itemToEdit.removeAttribute('edit')
+        $BTN_modalNote_Confirm.textContent = 'Guardar'
+
+        return
+    }
+    
+    CreateNewNote()
     modal.noteAdd.Deactivated()
+    console.log('Se creó una nueva carta')
 })
 
 function CreateNewNote () {
@@ -533,3 +548,8 @@ function PushEscapeNote (event) {
         modal.noteAdd.Deactivated()
     }
 }
+
+/**
+ * Modal > Drop Notes ☼————————————————————————————————————————————————————————
+ */
+
