@@ -161,23 +161,23 @@ const client = {
             const $cardItem = CardItem(noteData)
             const $BTN_addNewNote = $('.note--add__new');
 
-            $notesPanel.insertBefore($cardItem, $BTN_addNewNote)
+            $BTN_addNewNote.after($cardItem)
         },
 
         read(noteList) {
             if( noteList.length > 0 ){
                 $notesPanel.innerHTML = '';
-                $notesPanel.appendChild($addNewNote);
+                $notesPanel.prepend($addNewNote);
                 $emptyNotes.classList.remove('active');
                 
                 noteList.forEach((note) => {
                     const $cardItem = CardItem(note);
                     const $BTN_addNewNote = $('.note--add__new');
-                    $notesPanel.prepend($cardItem)    // insertBefore($cardItem, $BTN_addNewNote)
+                    $notesPanel.append($cardItem)    // insertBefore($cardItem, $BTN_addNewNote)
                 });
             } else {
                 $notesPanel.innerHTML = '';
-                $notesPanel.appendChild($addNewNote);
+                $notesPanel.prepend($addNewNote);
                 $emptyNotes.classList.add('active');
             }
             // Aplicar un evento al btn de eliminar nota
